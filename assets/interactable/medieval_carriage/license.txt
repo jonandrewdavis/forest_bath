@@ -1,0 +1,11 @@
+Model Information:
+* title:	Medieval Carriage
+* source:	https://sketchfab.com/3d-models/medieval-carriage-bfed092970544194bb940de841fc99b7
+* author:	B4TTL3CR33D (https://sketchfab.com/B4TTL3CR33D)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Medieval Carriage" (https://sketchfab.com/3d-models/medieval-carriage-bfed092970544194bb940de841fc99b7) by B4TTL3CR33D (https://sketchfab.com/B4TTL3CR33D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,35 @@
+# Blender 3.4.1 MTL File: '6.blend'
+# www.blender.org
+
+newmtl Fabric
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/T_fabric_brown2_bc.png
+map_Ns D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/SpecularMap.png
+map_Bump -bm 5.000000 D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/NormalMap.png
+
+newmtl Fur
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd D:/ZLECENIA/Modele3D/DOTS TEXTURES-20230208T112833Z-001/FUR/T_fur_bc.png
+map_Ns D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/SpecularMap.png
+map_Bump -bm 0.700000 D:/ZLECENIA/Modele3D/DOTS TEXTURES-20230208T112833Z-001/FUR/NormalMap (1).png
+
+newmtl Wood
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/T_wood_raw_bc.png
+map_Ns D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/T_wood_raw_ao.png
+map_Bump -bm 5.000000 D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/T_wood_raw_n_strong.png

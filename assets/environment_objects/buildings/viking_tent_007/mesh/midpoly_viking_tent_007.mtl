@@ -1,0 +1,24 @@
+# Blender 3.4.1 MTL File: '7.blend'
+# www.blender.org
+
+newmtl Rope
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/Rope/T_rope_BaseColor.png
+map_Ns D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/Rope/T_rope_Roughness.png
+map_Bump -bm 1.000000 D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/Rope/T_rope_NormalMap.png
+
+newmtl Wood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/Wood/T_wood_raw_BaseColor.png
+map_Bump -bm 10.000000 D:/ZLECENIA/Modele3D/PACZKI/VIKING TENTS/Textures/Wood/T_wood_raw_NormalMap_strong.png

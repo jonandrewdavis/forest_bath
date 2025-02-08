@@ -1,0 +1,447 @@
+[gd_scene load_steps=23 format=3 uid="uid://dugaivbj1o66n"]
+
+[ext_resource type="Script" uid="uid://mvuxrakmucuk" path="res://level/scripts/level.gd" id="1_e1sh7"]
+[ext_resource type="PackedScene" uid="uid://bn7vh6v8mmgja" path="res://player/player_charbody3d.tscn" id="2_5wxyk"]
+[ext_resource type="Shader" uid="uid://ilgfpa6fqkkg" path="res://utility scripts/filmgrain.gdshader" id="3_1ypwr"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="3_icc4p"]
+[ext_resource type="Shader" uid="uid://dagl0um7fq4qw" path="res://utility scripts/horror_pixels.gdshader" id="4_mglur"]
+[ext_resource type="Environment" uid="uid://c8oyix4qs0l7j" path="res://assets/environment/SecondForestEnv.tres" id="5_hv8je"]
+[ext_resource type="PackedScene" uid="uid://bnov3r3udtsa3" path="res://assets/environment/forest_sun.tscn" id="5_hyp44"]
+[ext_resource type="AudioStream" uid="uid://cltwo5xg7hrjg" path="res://audio/ambience-wind-blowing-through-trees-01-186986.mp3" id="8_am4re"]
+[ext_resource type="AudioStream" uid="uid://bhx06184tdu7w" path="res://audio/soft-wind-outside-sound-ambient-141989.mp3" id="9_xv7lm"]
+[ext_resource type="Texture2D" uid="uid://eue4sgjiwyos" path="res://shirin.png" id="11_560ui"]
+[ext_resource type="PackedScene" uid="uid://b6nuyrcy1rigj" path="res://level/scenes/menu_environment.tscn" id="13_insfy"]
+[ext_resource type="PackedScene" uid="uid://badtpsxn5lago" path="res://examples/shared/ui/network-popup.tscn" id="13_onpkm"]
+[ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://assets/themes/MinimalUI4/Strait-Regular.ttf" id="14_aj1qi"]
+[ext_resource type="AudioStream" uid="uid://dw4bplkv57i6i" path="res://assets/environment/GodotGrass/grass_loop.wav" id="21_m577m"]
+[ext_resource type="AudioStream" uid="uid://d4mv7rx862p3o" path="res://assets/environment/GodotGrass/insects_loop.wav" id="23_aoolo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tqduw"]
+shader = ExtResource("3_1ypwr")
+shader_parameter/grain_amount = 0.04
+shader_parameter/grain_size = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpqhk"]
+shader = ExtResource("4_mglur")
+shader_parameter/luminance = Color(0.3086, 0.6094, 0.082, 1)
+shader_parameter/brightness = 0.26
+shader_parameter/contrast = 3.0
+shader_parameter/scale = 1.5
+shader_parameter/rotation = 0.08
+shader_parameter/resolution_downsampling = 1.8
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t4rf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhx56"]
+seamless = true
+noise = SubResource("FastNoiseLite_7t4rf")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_npnbc"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_raw8h"]
+bg_color = Color(0, 0, 0, 0.529412)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.529412)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajte0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.239216)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_e1sh7")
+player_scene = ExtResource("2_5wxyk")
+
+[node name="FilmGrain" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_tqduw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DownSample" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_bpqhk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = ExtResource("5_hv8je")
+
+[node name="ForestSun" parent="Environment" instance=ExtResource("5_hyp44")]
+directional_shadow_mode = 0
+directional_shadow_max_distance = 9.9
+sky_mode = 1
+
+[node name="GrassLoopAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_m577m")
+volume_db = -80.0
+pitch_scale = 0.96
+bus = &"Background"
+
+[node name="WindLoopAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_am4re")
+volume_db = 7.242
+autoplay = true
+bus = &"Background"
+
+[node name="ColdWindAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_xv7lm")
+volume_db = -4.157
+autoplay = true
+bus = &"Background"
+
+[node name="InsectsLoopAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_aoolo")
+volume_db = -39.415
+autoplay = true
+bus = &"Background"
+
+[node name="PlayersContainer" type="Node3D" parent="."]
+
+[node name="EnemiesContainer" type="Node3D" parent="."]
+
+[node name="EnvironmentContainer" type="Node3D" parent="."]
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+custom_minimum_size = Vector2(650, 800)
+layout_mode = 2
+offset_top = -157.0
+offset_right = 650.0
+offset_bottom = 1370.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.811765)
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+self_modulate = Color(1, 1, 1, 0.129412)
+layout_mode = 0
+offset_left = 2.0
+offset_top = -66.0
+offset_right = 627.0
+offset_bottom = 1187.0
+texture = SubResource("NoiseTexture2D_yhx56")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="MainContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 611.0
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MainContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TextureRect" type="TextureRect" parent="Menu/MainContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("11_560ui")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Menu/MainContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 70
+text = "Forest Bath"
+
+[node name="Label2" type="Label" parent="Menu/MainContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 32
+text = "(shinrin yoku)"
+
+[node name="NetfoxMenuContainer" type="MarginContainer" parent="Menu/MainContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Network Popup" parent="Menu/MainContainer/NetfoxMenuContainer" node_paths=PackedStringArray("level_root") instance=ExtResource("13_onpkm")]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_aj1qi")
+level_root = NodePath("../../../..")
+
+[node name="OldMenu" type="VBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_npnbc")
+
+[node name="Option1" type="HBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option1"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 27
+text = "Name:  "
+
+[node name="NickInput" type="LineEdit" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option1"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_raw8h")
+max_length = 10
+expand_to_text_length = true
+
+[node name="Option2" type="HBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+text = "Player Skin : "
+
+[node name="SkinInput" type="LineEdit" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+placeholder_text = "blue"
+alignment = 1
+expand_to_text_length = true
+
+[node name="Option3" type="HBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+text = "IP Address : "
+
+[node name="AddressInput" type="LineEdit" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option3"]
+custom_minimum_size = Vector2(378, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+alignment = 1
+expand_to_text_length = true
+
+[node name="HSeparator2" type="HSeparator" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_npnbc")
+
+[node name="Buttons" type="HBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Host" type="Button" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+text = "HOST"
+flat = true
+
+[node name="Join" type="Button" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0.525257, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 35
+text = "JOIN"
+flat = true
+
+[node name="Option5" type="HBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Host" type="Button" parent="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option5"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 22
+text = "Host"
+flat = true
+
+[node name="Error" type="Label" parent="Menu/MainContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0, 0, 1)
+text = "ERROR JOINING GAME"
+horizontal_alignment = 1
+
+[node name="Option4" type="HBoxContainer" parent="Menu/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Quit" type="Button" parent="Menu/MainContainer/Option4"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_fonts/font = ExtResource("3_icc4p")
+theme_override_font_sizes/font_size = 24
+text = "QUIT"
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/MainContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="Menu/MainContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ajte0")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/MainContainer/MarginContainer/Panel"]
+layout_mode = 2
+offset_right = 531.0
+offset_bottom = 18.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Menu/MainContainer/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_icc4p")
+text = "Sound"
+
+[node name="MenuMasterSlider" type="HSlider" parent="Menu/MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(337, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.0
+
+[node name="LoadingControl" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LOADING" type="ColorRect" parent="LoadingControl"]
+custom_minimum_size = Vector2(650, 800)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="LoadingControl"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.129412)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_yhx56")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="SpawnerPlayers" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bn7vh6v8mmgja")
+spawn_path = NodePath("../PlayersContainer")
+
+[node name="SpawnerEnemies" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://cq2lr6sclvutj")
+spawn_path = NodePath("../EnemiesContainer")
+
+[node name="SpawnerEnvironment" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://brcob4a2vngyt", "uid://b58rh24bdj4p0", "uid://c4oockhjnrg6", "uid://dxlkgbr1p580", "uid://o0lqdvwkq6n4", "uid://donc6jtlr06dp", "uid://ds7vr6al5jaed")
+spawn_path = NodePath("../EnvironmentContainer")
+
+[node name="MenuEnvironmentArea" parent="." instance=ExtResource("13_insfy")]
+
+[connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option5/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Menu/MainContainer/Option4/Quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="Menu/MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/MenuMasterSlider" to="." method="_on_menu_master_slider_value_changed"]

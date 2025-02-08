@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://blleyftowq1ut"]
+
+[ext_resource type="PackedScene" uid="uid://j6adkjx44d02" path="res://assets/environment_objects/buildings/tower/tower-with-material.tscn" id="1_2a3bw"]
+[ext_resource type="PackedScene" uid="uid://cftgi6m48mskx" path="res://assets/interactable/loot/loot.tscn" id="2_g1p3s"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_xl603"]
+vertices = PackedVector3Array(-99.5, 0.45, -99.5, -99.5, 0.45, 99.5, 99.5, 0.45, 99.5, 99.5, 0.45, -99.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_133hy"]
+size = Vector3(200, 0.2, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oy0wf"]
+size = Vector3(200, 0.2, 200)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dhuyh"]
+load_path = "res://.godot/imported/TinyBrick01_albedo.png-5c1afae219dcc2246c0ad2f7dc474589.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4t0r8"]
+load_path = "res://.godot/imported/TinyBrick01_normal.png-b68f75780d2289b659ec9984f1e219a2.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7jy6x"]
+resource_name = "wall_01"
+cull_mode = 2
+albedo_color = Color(0.615686, 0.752941, 0.839216, 1)
+albedo_texture = SubResource("CompressedTexture2D_dhuyh")
+roughness = 0.46
+normal_texture = SubResource("CompressedTexture2D_4t0r8")
+uv1_scale = Vector3(300, 300, 300)
+
+[node name="Arena" type="Node3D"]
+
+[node name="SunkenFloor" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_xl603")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SunkenFloor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SunkenFloor/StaticBody3D"]
+shape = SubResource("BoxShape3D_133hy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SunkenFloor/StaticBody3D"]
+mesh = SubResource("BoxMesh_oy0wf")
+surface_material_override/0 = SubResource("StandardMaterial3D_7jy6x")
+
+[node name="tower" parent="." instance=ExtResource("1_2a3bw")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 9.20812, -1.53314, 0)
+
+[node name="Loot" parent="." instance=ExtResource("2_g1p3s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6248, 0.634705, 0)

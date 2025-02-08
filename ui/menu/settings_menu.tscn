@@ -1,0 +1,306 @@
+[gd_scene load_steps=10 format=3 uid="uid://s5lur3jc6w4b"]
+
+[ext_resource type="Script" path="res://ui/menu/settings_menu.gd" id="1_1fdt1"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="1_dc5cy"]
+[ext_resource type="Texture2D" uid="uid://c46nfvbeeb3pr" path="res://ui/panel-border-027.png" id="3_1chtl"]
+
+[sub_resource type="Theme" id="Theme_6a556"]
+default_font = ExtResource("1_dc5cy")
+default_font_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wacxy"]
+bg_color = Color(0, 0, 0, 0.792157)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o8re7"]
+noise_type = 2
+seed = -1
+frequency = 0.0157
+fractal_lacunarity = 3.0
+fractal_weighted_strength = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wcpwf"]
+invert = true
+in_3d_space = true
+noise = SubResource("FastNoiseLite_o8re7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8v64"]
+bg_color = Color(0.352941, 0.592157, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tpgm"]
+bg_color = Color(0.6, 0, 0, 1)
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6a556")
+script = ExtResource("1_1fdt1")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 514.0
+offset_bottom = 496.0
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer2"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wacxy")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer2/Panel"]
+layout_mode = 2
+texture = ExtResource("3_1chtl")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/Panel"]
+self_modulate = Color(1, 1, 1, 0.145098)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_wcpwf")
+expand_mode = 2
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Scoreboard" type="RichTextLabel" parent="MarginContainer2/Panel/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -630.0
+offset_top = -448.5
+offset_right = 630.0
+offset_bottom = 448.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 140
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 200
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(660, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wacxy")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/Panel"]
+layout_mode = 2
+texture = ExtResource("3_1chtl")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel"]
+self_modulate = Color(1, 1, 1, 0.145098)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_wcpwf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Settings" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Forest Bath"
+
+[node name="Settings2" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Settings"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sound - Master"
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sound - Effects"
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Background" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sound - Background"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SensitivityLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Look Sensitivity"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Shadows" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Enhanced Shadows"
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="Master" type="HSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+step = 0.0
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SFX" type="HSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+step = 0.0
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BackgroundSlider" type="HSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+step = 0.0
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SensitivitySlider" type="HSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+step = 0.01
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Controls" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Controls"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="RichTextLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "[WASD]: Move
+[E]: Interact
+[G]: Item (Heal)
+[R]: Swap Primary Weapon
+[Q]: Swap Secondary"
+
+[node name="RichTextLabel2" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "[F]: Jump
+[Shift]: Sprint
+[Space]: Roll (Evade)
+
+Note: Controller Supported"
+
+[node name="PVP Box" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/PVP Box"]
+layout_mode = 2
+text = "PVP Enabled Toggle"
+
+[node name="PVPCheck" type="CheckButton" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/PVP Box"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="buttons" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Respawn" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_k8v64")
+text = "Unstuck (Respawn)"
+
+[node name="Quit" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2tpgm")
+text = "Quit Game"
+
+[node name="HostIPContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HostIPLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HostIPContainer"]
+layout_mode = 2
+text = "Host IP:
+"
+
+[node name="HostIPButton" type="CheckButton" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HostIPContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Show Host IP"
+
+[node name="HiddenIP" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HostIPContainer"]
+visible = false
+layout_mode = 2
+
+[connection signal="value_changed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Master" to="." method="_on_master_value_changed"]
+[connection signal="value_changed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/SFX" to="." method="_on_sfx_value_changed"]
+[connection signal="value_changed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/BackgroundSlider" to="." method="_on_background_value_changed"]
+[connection signal="value_changed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/SensitivitySlider" to="." method="_on_sensitivity_slider_value_changed"]
+[connection signal="toggled" from="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="MarginContainer/Panel/MarginContainer/VBoxContainer/PVP Box/PVPCheck" to="." method="_on_pvp_check_toggled"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/buttons/Respawn" to="." method="_on_respawn_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/buttons/Quit" to="." method="_on_quit_pressed"]

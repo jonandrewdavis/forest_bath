@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://o0lqdvwkq6n4"]
+
+[ext_resource type="Script" path="res://level/scripts/encounter.gd" id="1_7bsja"]
+[ext_resource type="ArrayMesh" uid="uid://b3dnh6fdvid7p" path="res://assets/environment_objects/rocks/rock_pack_vol_3_rock_A.res" id="2_8py3d"]
+[ext_resource type="Shape3D" uid="uid://bssdo8nfg5bvj" path="res://assets/environment_objects/rocks/rock_pack_vol_3_rock_A_COL.res" id="3_ym5hn"]
+[ext_resource type="PackedScene" uid="uid://c3yajhej5laa7" path="res://interactable objects/chest/chest.tscn" id="4_e00lt"]
+[ext_resource type="PackedScene" uid="uid://ch6528py03hat" path="res://assets/interactable/campfire/campfire.tscn" id="5_hrtls"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cp0b5"]
+top_radius = 25.0
+bottom_radius = 25.0
+height = 15.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_goguv"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="EncounterRock" type="Node3D" node_paths=PackedStringArray("custom_ignore_mesh", "scenery_container")]
+script = ExtResource("1_7bsja")
+custom_ignore_mesh = NodePath("MeshInstance3D")
+scenery_container = NodePath("SceneryContainer")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_cp0b5")
+
+[node name="SceneryContainer" type="Node3D" parent="."]
+
+[node name="RockParent" type="Node3D" parent="SceneryContainer"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SceneryContainer/RockParent"]
+transform = Transform3D(28, 0, 0, 0, 27.6373, -4.49211, 0, 4.49211, 27.6373, 0, 4.95976, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SceneryContainer/RockParent/StaticBody3D"]
+mesh = ExtResource("2_8py3d")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneryContainer/RockParent/StaticBody3D"]
+shape = ExtResource("3_ym5hn")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="SceneryContainer/RockParent"]
+transform = Transform3D(3.41917, -0.565591, 13.5643, -1.2267, -13.9435, -0.272185, 13.5205, -1.12205, -3.45492, 11.7982, 1.96039, 1.84739)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SceneryContainer/RockParent/StaticBody3D2"]
+mesh = ExtResource("2_8py3d")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneryContainer/RockParent/StaticBody3D2"]
+shape = ExtResource("3_ym5hn")
+
+[node name="ChestObject" parent="SceneryContainer/RockParent" instance=ExtResource("4_e00lt")]
+transform = Transform3D(0.647495, 0, 0.76207, 0, 1, 0, -0.76207, 0, 0.647495, 2.98888, 12.5551, 4.97652)
+
+[node name="Campfire" parent="SceneryContainer/RockParent" instance=ExtResource("5_hrtls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99833, 12.2856, 8.21083)
+
+[node name="StaticBody3D" parent="SceneryContainer/RockParent/Campfire/CamfireContainer" index="9"]
+visible = false
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_goguv")
+
+[editable path="SceneryContainer/RockParent/Campfire"]
+[editable path="SceneryContainer/RockParent/Campfire/CamfireContainer/Torch_Gadget"]

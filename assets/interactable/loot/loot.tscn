@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://cftgi6m48mskx"]
+
+[ext_resource type="Material" uid="uid://f4whbanbg06d" path="res://assets/environment_objects/buildings/tower/tower_materials/dirty-stone-custom.tres" id="1_6kkrn"]
+[ext_resource type="PackedScene" uid="uid://c3yajhej5laa7" path="res://interactable objects/chest/chest.tscn" id="2_swrc4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cel1n"]
+material = ExtResource("1_6kkrn")
+size = Vector3(5.2, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eh7o1"]
+size = Vector3(5.2, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_al7dr"]
+size = Vector3(7.7, 1, 7.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1l4fv"]
+material = ExtResource("1_6kkrn")
+size = Vector3(7.7, 1, 7.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x8bls"]
+size = Vector3(10.7, 1, 10.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_esxc2"]
+material = ExtResource("1_6kkrn")
+size = Vector3(10.7, 1, 10.2)
+
+[node name="Loot" type="Node3D"]
+
+[node name="ChestObject" parent="." instance=ExtResource("2_swrc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13985, -0.186642)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702761, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.110153)
+mesh = SubResource("BoxMesh_cel1n")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_eh7o1")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0956244, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_al7dr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_1l4fv")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84694, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+shape = SubResource("BoxShape3D_x8bls")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
+mesh = SubResource("BoxMesh_esxc2")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.186874, 0)
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.103584)
+depth = 4.6
+polygon = PackedVector2Array(9, -2, 2.28313, 1.16872, -2.283, 1.169, -9, -2)
+
+[node name="CollisionPolygon3D2" type="CollisionPolygon3D" parent="StaticBody3D4"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.084749)
+depth = 4.6
+polygon = PackedVector2Array(9, -2, 2.28313, 1.16872, -2.283, 1.169, -9, -2)

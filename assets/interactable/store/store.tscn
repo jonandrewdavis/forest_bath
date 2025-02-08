@@ -1,0 +1,162 @@
+[gd_scene load_steps=21 format=3 uid="uid://boeiwt2araai2"]
+
+[ext_resource type="Script" path="res://utility scripts/store.gd" id="1_wkhmm"]
+[ext_resource type="PackedScene" uid="uid://c3yajhej5laa7" path="res://interactable objects/chest/chest.tscn" id="2_74so3"]
+[ext_resource type="ArrayMesh" uid="uid://cgx7ymldfthdy" path="res://player/equipment_system/equipment/shield_mesh.tres" id="2_bwoih"]
+[ext_resource type="Texture2D" uid="uid://8gsghealxlf4" path="res://assets/interactable/medieval_carriage/textures/aiStandardSurface1_baseColor.png" id="3_2vi02"]
+[ext_resource type="ArrayMesh" uid="uid://dydsmubmlna12" path="res://assets/weapons/WoodenBow/wooden_bow_mesh.tres" id="3_nockq"]
+[ext_resource type="Script" path="res://assets/interactable/store/items.gd" id="3_rt61q"]
+[ext_resource type="Texture2D" uid="uid://hg6hunkvy65f" path="res://assets/interactable/medieval_carriage/textures/aiStandardSurface1_metallicRoughness.png" id="4_twsdp"]
+[ext_resource type="Texture2D" uid="uid://dngyp1baqmyl2" path="res://assets/interactable/medieval_carriage/textures/aiStandardSurface1_normal.png" id="5_kjfvy"]
+[ext_resource type="ArrayMesh" uid="uid://creq3ae8cfngv" path="res://assets/interactable/store/axe_mesh.tres" id="7_s8p3j"]
+[ext_resource type="PackedScene" uid="uid://b0nkyxv67offp" path="res://assets/weapons/axe/uploads_files_3612294_Topor.fbx" id="8_4yvrc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xu47l"]
+size = Vector3(1, 0.6, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8c5gp"]
+size = Vector3(1, 0.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkewk"]
+resource_name = "aiStandardSurface1"
+cull_mode = 2
+albedo_texture = ExtResource("3_2vi02")
+metallic = 1.0
+metallic_texture = ExtResource("4_twsdp")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_twsdp")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_kjfvy")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_offset = Vector3(20, 20, 20)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s4b0l"]
+radius = 0.15
+height = 0.7
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rix7m"]
+radius = 0.15
+height = 0.7
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s8o7g"]
+radius = 0.12
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sd6lb"]
+albedo_color = Color(0.760244, 0.175128, 0.159848, 0.992157)
+roughness = 0.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_ol8fn"]
+material = SubResource("StandardMaterial3D_sd6lb")
+radius = 0.05
+height = 0.1
+radial_segments = 12
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u61ev"]
+albedo_color = Color(0.666667, 0.447059, 0.184314, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10ev2"]
+material = SubResource("StandardMaterial3D_u61ev")
+top_radius = 0.02
+bottom_radius = 0.005
+height = 0.05
+radial_segments = 12
+rings = 1
+
+[node name="Store" type="Node3D"]
+script = ExtResource("1_wkhmm")
+
+[node name="Open" type="Area3D" parent="."]
+collision_layer = 257
+collision_mask = 257
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Open"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.328879, 0)
+shape = SubResource("BoxShape3D_xu47l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Open"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.319135, 0)
+visible = false
+mesh = SubResource("BoxMesh_8c5gp")
+
+[node name="ChestObject" parent="Open" instance=ExtResource("2_74so3")]
+collision_layer = 0
+collision_mask = 0
+is_store_chest = true
+
+[node name="MeshInstance3D" parent="Open/ChestObject" index="1"]
+material = SubResource("StandardMaterial3D_mkewk")
+
+[node name="CSGBox3D" parent="Open/ChestObject" index="2"]
+material = SubResource("StandardMaterial3D_mkewk")
+
+[node name="Items" type="Node3D" parent="."]
+script = ExtResource("3_rt61q")
+
+[node name="Axe (20g)" type="Area3D" parent="Items"]
+transform = Transform3D(-0.998273, 0.0385775, 0.0442909, 0.0422629, 0.995438, 0.0855335, -0.0407893, 0.0872567, -0.995351, -0.351595, 1.12265, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/Axe (20g)"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0309252, 0)
+shape = SubResource("CapsuleShape3D_s4b0l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/Axe (20g)"]
+transform = Transform3D(0.0691079, 0.00956475, -0.393869, -0.087249, 0.390325, -0.00582996, 0.384203, 0.0869189, 0.0695227, -0.0614208, -0.205178, -0.0856889)
+visible = false
+mesh = ExtResource("7_s8p3j")
+
+[node name="uploads_files_3612294_Topor" parent="Items/Axe (20g)" instance=ExtResource("8_4yvrc")]
+transform = Transform3D(0.0151261, -7.27596e-10, -0.0988494, 0, 0.1, -7.567e-10, 0.0988494, 0, 0.0151261, -0.00609475, -0.143553, -0.0123347)
+
+[node name="Shield (15g)" type="Area3D" parent="Items"]
+transform = Transform3D(-0.991601, 0, 0.129332, 0.0533516, 0.91095, 0.409052, -0.117815, 0.412516, -0.9033, -0.0372312, 1.1116, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/Shield (15g)"]
+transform = Transform3D(0.998491, 0.0536804, -0.0115685, -0.0536804, 0.909795, -0.411573, -0.0115685, 0.411573, 0.911304, -0.00235153, -0.0309254, 0.000306696)
+shape = SubResource("CapsuleShape3D_s4b0l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/Shield (15g)"]
+transform = Transform3D(0.499995, -0.000715036, -0.00219674, 0.00230983, 0.146311, 0.478108, -4.0926e-05, -0.478113, 0.146312, 0, 0, 0)
+mesh = ExtResource("2_bwoih")
+
+[node name="Bow (40g)" type="Area3D" parent="Items"]
+transform = Transform3D(-0.989678, -0.012929, 0.142726, 0.0156236, 0.980252, 0.197135, -0.142455, 0.19733, -0.969931, 0.343003, 1.16761, 0.0203215)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/Bow (40g)"]
+transform = Transform3D(0.999883, 0.0153141, 0.00057295, -0.0151678, 0.994283, -0.105693, -0.00218831, 0.105672, 0.994399, 0.0312179, -0.0238483, 0.00704715)
+shape = SubResource("CapsuleShape3D_rix7m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/Bow (40g)"]
+transform = Transform3D(2, 0, 0, 0, 0.167043, -1.99301, 0, 1.99301, 0.167043, 0, -0.0547645, -0.0528195)
+mesh = ExtResource("3_nockq")
+
+[node name="Potion (3g)" type="Area3D" parent="Items"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614938, 1.07102, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Items/Potion (3g)"]
+transform = Transform3D(1, 7.45058e-09, 0, -1.49012e-08, 1, 0, -2.98023e-08, -5.96046e-08, 1, 0, -0.0242559, 0.0115492)
+shape = SubResource("CapsuleShape3D_s8o7g")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Items/Potion (3g)"]
+mesh = SubResource("SphereMesh_ol8fn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Items/Potion (3g)/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0501423, 0)
+mesh = SubResource("CylinderMesh_10ev2")
+
+[node name="OpenTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AutoCloseTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="PreventTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="area_entered" from="Open" to="." method="_on_open_store_area_entered"]
+
+[editable path="Open/ChestObject"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://b65t1v7qe0rb3"]
+
+[ext_resource type="Script" uid="uid://dyami13ibmhff" path="res://cameras/follow_cam/follow_cam_3d.gd" id="1_y42mi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6qse"]
+margin = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_54met"]
+size = Vector3(0.02, 0.1, 6)
+
+[node name="FollowCam" type="SpringArm3D" node_paths=PackedStringArray("camera_3d")]
+top_level = true
+shape = SubResource("BoxShape3D_m6qse")
+spring_length = 2.0
+margin = 1.0
+script = ExtResource("1_y42mi")
+camera_3d = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+h_offset = 0.6
+
+[node name="CustomEyeline" type="Area3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
+collision_layer = 256
+collision_mask = 257
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/CustomEyeline"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.99467)
+shape = SubResource("BoxShape3D_54met")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D/CustomEyeline"]
+target_position = Vector3(0, 0, -5)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="area_entered" from="Camera3D/CustomEyeline" to="." method="_on_custom_eyeline_area_entered"]
+[connection signal="area_exited" from="Camera3D/CustomEyeline" to="." method="_on_custom_eyeline_area_exited"]

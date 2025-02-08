@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://ds7vr6al5jaed"]
+
+[ext_resource type="Script" path="res://level/scripts/encounter.gd" id="1_mmgi6"]
+[ext_resource type="PackedScene" uid="uid://txvm28cuy25k" path="res://assets/environment_objects/buildings/viking_tent_001/mesh/lowpoly_viking_tent_001.fbx" id="2_52wr3"]
+[ext_resource type="PackedScene" uid="uid://dggqg2obn6pqu" path="res://assets/environment_objects/buildings/viking_tent_007/mesh/lowpoly_viking_tent_007.fbx" id="3_bl3b5"]
+[ext_resource type="PackedScene" uid="uid://ch6528py03hat" path="res://assets/interactable/campfire/campfire.tscn" id="5_11ulg"]
+[ext_resource type="PackedScene" uid="uid://cftgi6m48mskx" path="res://assets/interactable/loot/loot.tscn" id="5_ytygs"]
+[ext_resource type="PackedScene" uid="uid://djar63dd2fn1x" path="res://assets/environment_objects/trees/arbol8.glb" id="6_36yvj"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cp0b5"]
+top_radius = 25.0
+bottom_radius = 25.0
+height = 15.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o453l"]
+size = Vector3(0.1, 1.8, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dqifd"]
+size = Vector3(0.05, 1.2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g1gj0"]
+size = Vector3(1.8, 1.8, 2.4)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_p0fq7"]
+height = 8.0
+radius = 1.7
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rhixb"]
+height = 8.0
+radius = 1.2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pqcpb"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="EncounterHuts" type="Node3D" node_paths=PackedStringArray("custom_ignore_mesh", "scenery_container")]
+script = ExtResource("1_mmgi6")
+custom_ignore_mesh = NodePath("MeshInstance3D")
+scenery_container = NodePath("SceneryContainer")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_cp0b5")
+
+[node name="SceneryContainer" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="SceneryContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.61522, 0, 5.29234)
+
+[node name="tent2" type="StaticBody3D" parent="SceneryContainer/Node3D"]
+transform = Transform3D(0.836248, 0, 0.548352, 0, 1, 0, -0.548352, 0, 0.836248, 0, 0, 0)
+
+[node name="lowpoly_viking_tent_007" parent="SceneryContainer/Node3D/tent2" instance=ExtResource("3_bl3b5")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneryContainer/Node3D/tent2"]
+transform = Transform3D(0.946711, 0.322084, 0, -0.322084, 0.946711, 0, 0, 0, 1, -0.701442, 0.704895, 0)
+shape = SubResource("BoxShape3D_o453l")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SceneryContainer/Node3D/tent2"]
+transform = Transform3D(0.02178, 0.999763, 0, -0.999763, 0.02178, 0, 0, 0, 1, 0.142945, 1.56199, 0)
+shape = SubResource("BoxShape3D_dqifd")
+
+[node name="Node3D2" type="Node3D" parent="SceneryContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.92369, 0, 0)
+
+[node name="tent1" type="StaticBody3D" parent="SceneryContainer/Node3D2"]
+physics_interpolation_mode = 2
+transform = Transform3D(0.320382, 0, -0.947289, 0, 1, 0, 0.947289, 0, 0.320382, 0, 0, 0)
+
+[node name="lowpoly_viking_tent_001" parent="SceneryContainer/Node3D2/tent1" instance=ExtResource("2_52wr3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SceneryContainer/Node3D2/tent1"]
+transform = Transform3D(0.714302, -0.699838, 0, 0.699838, 0.714302, 0, 0, 0, 1, -0.0631309, 0.124255, -0.14326)
+shape = SubResource("BoxShape3D_g1gj0")
+
+[node name="Node3D3" type="Node3D" parent="SceneryContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.94435)
+
+[node name="tent3" type="StaticBody3D" parent="SceneryContainer/Node3D3"]
+physics_interpolation_mode = 2
+transform = Transform3D(0.9956, 0, 0.0937088, 0, 1, 0, -0.0937088, 0, 0.9956, 0, 0, 0)
+
+[node name="lowpoly_viking_tent_001" parent="SceneryContainer/Node3D3/tent3" instance=ExtResource("2_52wr3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SceneryContainer/Node3D3/tent3"]
+transform = Transform3D(0.714302, -0.699838, 0, 0.699838, 0.714302, 0, 0, 0, 1, -0.0631309, 0.124255, -0.14326)
+shape = SubResource("BoxShape3D_g1gj0")
+
+[node name="Campfire" parent="SceneryContainer" instance=ExtResource("5_11ulg")]
+
+[node name="Loot" parent="SceneryContainer" instance=ExtResource("5_ytygs")]
+transform = Transform3D(-0.976829, 0, -0.214019, 0, 1, 0, 0.214019, 0, -0.976829, 0, -1.8555, 17.1148)
+
+[node name="Node3D4" type="Node3D" parent="SceneryContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.508, 0, 10.6492)
+
+[node name="arbol9" parent="SceneryContainer/Node3D4" instance=ExtResource("6_36yvj")]
+transform = Transform3D(-5.42817, 0, 4.41984, 0, 7, 0, -4.41984, 0, -5.42817, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SceneryContainer/Node3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneryContainer/Node3D4/StaticBody3D"]
+shape = SubResource("CylinderShape3D_p0fq7")
+
+[node name="Node3D5" type="Node3D" parent="SceneryContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -2)
+
+[node name="arbol8" parent="SceneryContainer/Node3D5" instance=ExtResource("6_36yvj")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="SceneryContainer/Node3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneryContainer/Node3D5/StaticBody3D2"]
+shape = SubResource("CylinderShape3D_rhixb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pqcpb")

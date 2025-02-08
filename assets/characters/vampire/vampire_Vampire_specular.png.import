@@ -1,0 +1,37 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dxk8iax6idp81"
+path="res://.godot/imported/vampire_Vampire_specular.png-0bafa5f029d73343e5683898f466fd5e.ctex"
+metadata={
+"vram_texture": false
+}
+generator_parameters={
+"md5": "cb1b732df0f57848d1383efd8c2cf063"
+}
+
+[deps]
+
+source_file="res://assets/characters/vampire/vampire_Vampire_specular.png"
+dest_files=["res://.godot/imported/vampire_Vampire_specular.png-0bafa5f029d73343e5683898f466fd5e.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

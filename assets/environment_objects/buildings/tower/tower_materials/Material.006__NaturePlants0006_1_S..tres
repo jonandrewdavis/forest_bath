@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bfkpy5yr183ns"]
+
+[ext_resource type="Texture2D" uid="uid://d4fqjp6dt6hwl" path="res://assets/environment_objects/buildings/tower/textures/NaturePlants0006_1_S.png" id="1_yj263"]
+
+[resource]
+resource_name = "Material.006__NaturePlants0006_1_S."
+transparency = 4
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.694148, 0.694148, 0.694148, 0.4397)
+albedo_texture = ExtResource("1_yj263")
+emission = Color(0.906332, 0.906332, 0.906332, 1)
+emission_energy_multiplier = 0.5438

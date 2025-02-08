@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhemtdwfxuwnl"]
+
+[ext_resource type="Script" path="res://utility scripts/rope.gd" id="1_ilnl7"]
+[ext_resource type="ArrayMesh" uid="uid://dqofwp02qg7ki" path="res://assets/interactable/chinese_bell_optimized/bell_mesh/bell_holder_mesh.res" id="2_ai8ow"]
+[ext_resource type="Script" path="res://level/scenes/bell.gd" id="4_vc0rs"]
+[ext_resource type="ArrayMesh" uid="uid://cly565r67hv0l" path="res://assets/interactable/chinese_bell_optimized/bell_mesh/bell_mesh.res" id="5_6y02j"]
+[ext_resource type="AudioStream" uid="uid://bqk314m2hmkj0" path="res://audio/old-church-bell-CUT.mp3" id="6_xgx7v"]
+[ext_resource type="Script" path="res://audio/SoundFXSystem.gd" id="7_exjyq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qjjy7"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2rwgg"]
+size = Vector3(0.4, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wxkk1"]
+size = Vector3(0.1, 6, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_goaxc"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hunw8"]
+radius = 0.7
+height = 2.5
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hjtrs"]
+properties/0/path = NodePath("Bell:replicated_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Bell:replicated_rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Bell:replicated_linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Bell:replicated_angular_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="BellRootNode" type="Node3D"]
+
+[node name="Rope" type="Node3D" parent="." node_paths=PackedStringArray("start_point", "end_point")]
+script = ExtResource("1_ilnl7")
+start_point = NodePath("RopeStart")
+end_point = NodePath("../Bell/RopeEnd")
+end_is_rigidbody = false
+number_of_segments = 3
+cable_length = 2.0
+cable_thickness = 0.05
+cable_springiness = 30.0
+
+[node name="RopeStart" type="StaticBody3D" parent="Rope"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.43985, 0.0502319)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rope/RopeStart"]
+shape = SubResource("BoxShape3D_qjjy7")
+
+[node name="BellHolder" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BellHolder"]
+transform = Transform3D(0.405, 0, 0, 0, -1.77031e-08, 0.405, 0, -0.405, -1.77031e-08, -0.00568032, 1.60492, -0.113938)
+mesh = ExtResource("2_ai8ow")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BellHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.52269, 0)
+shape = SubResource("BoxShape3D_2rwgg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BellHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.69976, 1.27472, 0.04807)
+shape = SubResource("BoxShape3D_wxkk1")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BellHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73764, 1.27472, 0.04807)
+shape = SubResource("BoxShape3D_wxkk1")
+
+[node name="JoltConeTwistJoint3D" type="JoltConeTwistJoint3D" parent="."]
+node_a = NodePath("../BellHolder")
+node_b = NodePath("../Bell")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19462, 0.0591555)
+
+[node name="Bell" type="RigidBody3D" parent="." groups=["targets"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46114, 0)
+mass = 2.0
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("4_vc0rs")
+
+[node name="RopeEnd" type="StaticBody3D" parent="Bell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79322, 0.084528)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bell/RopeEnd"]
+shape = SubResource("BoxShape3D_goaxc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bell"]
+transform = Transform3D(0.3, 0, 0, 0, -1.31134e-08, 0.3, 0, -0.3, -1.31134e-08, 0, 0.437883, 0)
+mesh = ExtResource("5_6y02j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302902, 0.11044)
+shape = SubResource("CapsuleShape3D_hunw8")
+
+[node name="SoundFXTrigger" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("triggering_node")]
+stream = ExtResource("6_xgx7v")
+max_polyphony = 2
+bus = &"SFX"
+script = ExtResource("7_exjyq")
+triggering_node = NodePath("../Bell")
+sound_trigger_signal = "ring"
+
+[node name="RingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.5
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hjtrs")

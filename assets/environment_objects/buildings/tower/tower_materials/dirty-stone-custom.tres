@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://f4whbanbg06d"]
+
+[ext_resource type="Texture2D" uid="uid://b82ottty1epfo" path="res://assets/environment_objects/buildings/tower/textures/Dirty_Stone_01_UV_H_CM_1.jpg" id="1_mjcen"]
+
+[resource]
+resource_name = "Material.002"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.82098, 0.82098, 0.82098, 1)
+albedo_texture = ExtResource("1_mjcen")
+emission = Color(0.906332, 0.906332, 0.906332, 1)
+emission_energy_multiplier = 0.1717
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true

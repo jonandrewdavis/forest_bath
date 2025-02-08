@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4oockhjnrg6"]
+
+[ext_resource type="PackedScene" uid="uid://ch6528py03hat" path="res://assets/interactable/campfire/campfire.tscn" id="1_hv11k"]
+[ext_resource type="Script" path="res://level/scripts/encounter.gd" id="1_jrmak"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nlusu"]
+top_radius = 18.0
+bottom_radius = 18.0
+height = 12.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_081l1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="StartingArea" type="Node3D" node_paths=PackedStringArray("custom_ignore_mesh", "scenery_container")]
+script = ExtResource("1_jrmak")
+custom_ignore_mesh = NodePath("IgnoreZone")
+scenery_container = NodePath("SceneryContainer")
+
+[node name="IgnoreZone" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_nlusu")
+
+[node name="SceneryContainer" type="Node3D" parent="."]
+
+[node name="CampfireParent" type="Node3D" parent="SceneryContainer"]
+
+[node name="Campfire" parent="SceneryContainer/CampfireParent" instance=ExtResource("1_hv11k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.106021, 0.530545, 0.157061)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_081l1")

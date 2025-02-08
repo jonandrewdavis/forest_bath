@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bonfire
+* source:	https://sketchfab.com/3d-models/bonfire-6f61e3ee52594ba0a416b2eb30d40efe
+* author:	3dAssetsForGames (https://sketchfab.com/3dAssatsForGames)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bonfire" (https://sketchfab.com/3d-models/bonfire-6f61e3ee52594ba0a416b2eb30d40efe) by 3dAssetsForGames (https://sketchfab.com/3dAssatsForGames) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

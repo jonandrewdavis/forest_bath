@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c52dyqp638fu0"]
+
+[ext_resource type="Texture2D" uid="uid://cve4ryx1obn5p" path="res://assets/environment_objects/buildings/tower/textures/BarkStripped0001_S.jpg" id="1_ag3jq"]
+
+[resource]
+resource_name = "Material.002__BarkStripped0001_S.jp"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.906332, 0.906332, 0.906332, 0.8)
+albedo_texture = ExtResource("1_ag3jq")
+emission = Color(0.906332, 0.906332, 0.906332, 1)
+emission_energy_multiplier = 0.1717

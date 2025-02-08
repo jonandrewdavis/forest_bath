@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://c06lrg6iohyf7"]
+
+[ext_resource type="Texture2D" uid="uid://bm5eepvl8n4q7" path="res://assets/environment_objects/rocks/moss_rock_08/moss rock 08 color (4096).jpg" id="1_wjxew"]
+[ext_resource type="Texture2D" uid="uid://c5jv1nwwd7qyi" path="res://assets/environment_objects/rocks/moss_rock_08/moss rock 08_heights (4096).png" id="2_1gfcf"]
+[ext_resource type="Texture2D" uid="uid://dhcshx66yh1t" path="res://assets/environment_objects/rocks/moss_rock_08/moss rock 08 normal (4096).png" id="3_haj0a"]
+[ext_resource type="Texture2D" uid="uid://bmkmb7vuxk4n1" path="res://assets/environment_objects/rocks/moss_rock_08/moss rock 08 roughness (4096).png" id="4_myvfu"]
+
+[resource]
+resource_name = "low"
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_texture = ExtResource("1_wjxew")
+roughness_texture = ExtResource("4_myvfu")
+normal_enabled = true
+normal_texture = ExtResource("3_haj0a")
+heightmap_texture = ExtResource("2_1gfcf")

@@ -1,0 +1,59 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://8jfdmvjmbhhr"
+path="res://.godot/imported/scene.gltf-3e48eb4414427695314bf0fa50dfde01.scn"
+
+[deps]
+
+source_file="res://assets/interactable/chinese_bell_optimized/scene.gltf"
+dest_files=["res://.godot/imported/scene.gltf-3e48eb4414427695314bf0fa50dfde01.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"meshes": {
+"Sketchfab_Scene_Object_2": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/interactable/chinese_bell_optimized/bell_mesh/bell_holder_mesh.res"
+}
+},
+"nodes": {
+"PATH:Sketchfab_model/Campana Tavolo_obj_cleaner_materialmerger_gles/Object_2": {
+"import/skip_import": true
+},
+"PATH:Sketchfab_model/Campana Tavolo_obj_cleaner_materialmerger_gles/Object_3": {
+"import/skip_import": true
+},
+"PATH:Sketchfab_model/Campana Tavolo_obj_cleaner_materialmerger_gles/Object_4": {
+"generate/physics": true
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

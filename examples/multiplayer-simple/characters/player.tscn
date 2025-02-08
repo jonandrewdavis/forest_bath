@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://duljyj8cj1vb6"]
+
+[ext_resource type="Script" uid="uid://blt2jak8h758e" path="res://examples/multiplayer-simple/scripts/player.gd" id="1_52uoj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t2650"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vogks"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n7ria"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 2
+script = ExtResource("1_52uoj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_t2650")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_vogks")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_n7ria")

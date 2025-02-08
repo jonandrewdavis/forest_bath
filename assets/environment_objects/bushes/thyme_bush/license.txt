@@ -1,0 +1,11 @@
+Model Information:
+* title:	Thyme Bush
+* source:	https://sketchfab.com/3d-models/thyme-bush-f2c0533f2bd247b5adecf6854ae68fab
+* author:	Sim387 (https://sketchfab.com/350rdlc.sl)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Thyme Bush" (https://sketchfab.com/3d-models/thyme-bush-f2c0533f2bd247b5adecf6854ae68fab) by Sim387 (https://sketchfab.com/350rdlc.sl) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

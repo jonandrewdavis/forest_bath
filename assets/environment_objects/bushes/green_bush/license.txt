@@ -1,0 +1,11 @@
+Model Information:
+* title:	Green Bush
+* source:	https://sketchfab.com/3d-models/green-bush-53fc57039ada4414b5aa8eba6c663fe2
+* author:	Luis Gustavo (https://sketchfab.com/Luissantos2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Green Bush" (https://sketchfab.com/3d-models/green-bush-53fc57039ada4414b5aa8eba6c663fe2) by Luis Gustavo (https://sketchfab.com/Luissantos2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

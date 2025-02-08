@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://cppm5fkbguoqx"]
+
+[ext_resource type="Script" path="res://player/equipment_system/equipment/equipment_object.gd" id="1_g41uq"]
+[ext_resource type="Script" path="res://player/equipment_system/equipment/equipment_resource.gd" id="2_7ffab"]
+[ext_resource type="ArrayMesh" uid="uid://creq3ae8cfngv" path="res://assets/interactable/store/axe_mesh.tres" id="3_nwntb"]
+[ext_resource type="PackedScene" uid="uid://b0nkyxv67offp" path="res://assets/weapons/axe/uploads_files_3612294_Topor.fbx" id="4_s6ts6"]
+
+[sub_resource type="Resource" id="Resource_g4dft"]
+script = ExtResource("2_7ffab")
+name = "Hammer"
+object_type = "HEAVY"
+power = 2
+weight = 1
+value = 1
+streak = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ogvqq"]
+size = Vector3(0.465, 1.4, 0.442)
+
+[node name="Ax" type="Area3D"]
+collision_mask = 5
+script = ExtResource("1_g41uq")
+equipment_info = SubResource("Resource_g4dft")
+
+[node name="AxMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450631, 0)
+visible = false
+mesh = ExtResource("3_nwntb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.886646, -0.135)
+shape = SubResource("BoxShape3D_ogvqq")
+
+[node name="uploads_files_3612294_Topor" parent="." instance=ExtResource("4_s6ts6")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.269902, 0)

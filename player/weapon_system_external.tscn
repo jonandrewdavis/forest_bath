@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbs3ecwfnojr8"]
+
+[ext_resource type="Script" path="res://player/equipment_system/equipment_system.gd" id="1_p6jx6"]
+[ext_resource type="PackedScene" uid="uid://5sa731kfp54y" path="res://player/equipment_system/equipment/Bow.tscn" id="2_tqvon"]
+[ext_resource type="PackedScene" uid="uid://dva7owhrl4wew" path="res://player/equipment_system/equipment/sword.tscn" id="3_pg22l"]
+[ext_resource type="AudioStream" uid="uid://dwewi6cxbh3do" path="res://audio/SoundFX/hit/hit_blunt_06.wav" id="4_ikrc3"]
+[ext_resource type="Script" path="res://audio/SoundFXSystem.gd" id="5_0pkds"]
+[ext_resource type="AudioStream" uid="uid://bl6briwljoa1t" path="res://audio/SoundFX/clang/clang_4.wav" id="6_stntv"]
+[ext_resource type="Script" path="res://utility scripts/mesh_streak.gd" id="7_jjnn7"]
+
+[node name="WeaponSystem" type="Node3D" node_paths=PackedStringArray("held_mount_point", "stored_mount_point")]
+script = ExtResource("1_p6jx6")
+change_signal = "weapon_change_started"
+held_mount_point = NodePath("RightHand/HandPivot")
+stored_mount_point = NodePath("BackBone/BackPivot")
+
+[node name="LeftHand" type="BoneAttachment3D" parent="."]
+transform = Transform3D(-0.324492, -0.0844653, -0.941788, 0.343727, -0.892845, -0.0674754, -0.907404, -0.399042, 0.336518, 0.283056, 0.980233, 0.0575766)
+visible = false
+bone_name = "LeftHand"
+bone_idx = 11
+use_external_skeleton = true
+external_skeleton = NodePath("../../akai-attack-master-2/Armature/GeneralSkeleton")
+
+[node name="LeftHandPivot" type="Marker3D" parent="LeftHand"]
+transform = Transform3D(0.0522287, -0.998058, 0.0338687, -0.307579, 0.0161887, 0.951382, -0.950086, -0.0601072, -0.306138, 0.205842, 0.082587, 0.0414347)
+
+[node name="Bow" parent="LeftHand/LeftHandPivot" instance=ExtResource("2_tqvon")]
+
+[node name="BackBone" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.999756, -0.0141109, 0.0170207, 0.0175361, 0.974945, -0.221755, -0.013465, 0.221999, 0.974954, -0.00219246, 1.27901, -0.0842599)
+bone_name = "UpperChest"
+bone_idx = 4
+use_external_skeleton = true
+external_skeleton = NodePath("../../akai-attack-master-2/Armature/GeneralSkeleton")
+
+[node name="BackPivot" type="Marker3D" parent="BackBone"]
+transform = Transform3D(0.0014642, 0.00341032, -0.999993, -0.0666676, -0.997769, -0.00350057, -0.997774, 0.0666723, -0.00123349, -0.120301, 0.214743, -0.165111)
+
+[node name="Bow" parent="BackBone/BackPivot" instance=ExtResource("2_tqvon")]
+
+[node name="RightHand" type="BoneAttachment3D" parent="."]
+transform = Transform3D(-0.558315, 0.0322801, 0.840524, -0.452733, -0.785064, -0.292212, 0.7428, -0.575699, 0.459241, -0.280196, 0.962348, -0.121944)
+bone_name = "RightHand"
+bone_idx = 35
+use_external_skeleton = true
+external_skeleton = NodePath("../../akai-attack-master-2/Armature/GeneralSkeleton")
+
+[node name="HandPivot" type="Marker3D" parent="RightHand"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.085, 0.025)
+
+[node name="Sword" parent="RightHand/HandPivot" instance=ExtResource("3_pg22l")]
+
+[node name="WeaponHitTarget" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("triggering_node")]
+stream = ExtResource("4_ikrc3")
+pitch_scale = 0.58
+max_distance = 7.0
+script = ExtResource("5_0pkds")
+triggering_node = NodePath("..")
+
+[node name="WeaponHitWorld" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("triggering_node")]
+stream = ExtResource("6_stntv")
+volume_db = -8.055
+pitch_scale = 0.69
+max_distance = 7.0
+script = ExtResource("5_0pkds")
+triggering_node = NodePath("..")
+sound_trigger_signal = "hit_world"
+
+[node name="WeaponStreak" type="MeshInstance3D" parent="." node_paths=PackedStringArray("origin_node")]
+top_level = true
+skeleton = NodePath("../..")
+script = ExtResource("7_jjnn7")
+origin_node = NodePath("../RightHand/HandPivot")

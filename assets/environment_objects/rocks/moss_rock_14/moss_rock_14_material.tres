@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://uvd6ev2thak6"]
+
+[ext_resource type="Texture2D" uid="uid://psd7wtxdttxx" path="res://assets/environment_objects/rocks/moss_rock_14/moss rock 14 (4096).jpg" id="1_wygp2"]
+[ext_resource type="Texture2D" uid="uid://bf0phjg0sfdag" path="res://assets/environment_objects/rocks/moss_rock_14/moss rock 14_heights (4096).png" id="2_tbslg"]
+[ext_resource type="Texture2D" uid="uid://rclmcs4yshxp" path="res://assets/environment_objects/rocks/moss_rock_14/moss rock 14_normal (4096).png" id="3_264uv"]
+[ext_resource type="Texture2D" uid="uid://hwql6y5mkur0" path="res://assets/environment_objects/rocks/moss_rock_14/moss rock 14_roughness (4096).png" id="4_11sqb"]
+
+[resource]
+albedo_texture = ExtResource("1_wygp2")
+metallic_specular = 0.0
+roughness_texture = ExtResource("4_11sqb")
+normal_enabled = true
+normal_texture = ExtResource("3_264uv")
+heightmap_scale = 1.0
+heightmap_texture = ExtResource("2_tbslg")
