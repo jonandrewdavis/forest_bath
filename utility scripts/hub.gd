@@ -61,8 +61,11 @@ func get_random_player():
 			count_up = count_up + 1
 
 func get_cart() -> Node3D:
-	return environment_container.get_node("Cart")
-	
+	if environment_container.get_node_or_null("Cart") != null:
+		return environment_container.get_node("Cart")
+	else: 
+		return get_random_player()
+		
 func add_coins(amount):
 	add_coins_sync.rpc(amount)
 	

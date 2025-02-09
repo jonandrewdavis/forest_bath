@@ -46,9 +46,6 @@ func _enter_tree():
 
 # Do not ready if we're on the server or some other person's machine
 func _ready():
-	if multiplayer.is_server():
-		return
-
 	if not is_multiplayer_authority():
 		return
 
@@ -84,7 +81,7 @@ func _input(event):
 func _physics_process(_delta):
 	if not is_multiplayer_authority(): return
 
-	joystick_control() # run in physics processr ather than event for smoother action
+	#joystick_control() # run in physics processr ather than event for smoother action
 
 	_follow_target(follow_target)
 	_lookat_target()

@@ -11,14 +11,13 @@ const HEIGHTMAP := preload('res://assets/environment/heightmap_grass_main.tres')
 const TILE_SIZE := 5.0
 const MAP_RADIUS := 200.0
 const HEIGHTMAP_SCALE := 5.0
-const HEIGHTMAP_NOISE_WIDTH = 1024
-
+const HEIGHTMAP_NOISE_WIDTH = 512
 
 var grass_multimeshes : Array[Array] = []
 var previous_tile_id := Vector3.ZERO
 var should_render_imgui := true
 
-@onready var should_render_shadows := [false]
+@onready var should_render_shadows := [true]
 @onready var density_modifier := [0.8 if Engine.is_editor_hint() else 1.0]
 @onready var clumping_factor := [GRASS_MAT.get_shader_parameter('clumping_factor')]
 @onready var wind_speed := [GRASS_MAT.get_shader_parameter('wind_speed')]
@@ -49,8 +48,6 @@ func _ready() -> void:
 	
 	# TODO: Ready on signal instead of by default and we can remove the ! player check in physics
 	RenderingServer.viewport_set_measure_render_time(get_tree().root.get_viewport_rid(), true)
-	await get_tree().create_timer(1.0).timeout
-	# TODO: 
 	_setup_grass_instances()
 	_generate_grass_multimeshes()
 
@@ -71,8 +68,7 @@ func _physics_process(_delta: float) -> void:
 
 	#NOTE!!!!! REMOVED EDITOR FOR FINAL BUILD
 	# Correct LOD by repositioning tiles when the player moves into a new tile
-
-	#var lod_target : Node3D = EditorInterface.get_editor_viewport_3d(0).get_camera_3d() if Engine.is_editor_hint() else player
+	var lod_target : Node3D = EditorInterface.get_editor_viewport_3d(0).get_camera_3d() if Engine.is_editor_hint() else player
 	var tile_id : Vector3 = ((player.global_position + Vector3.ONE*TILE_SIZE*0.5) / TILE_SIZE * Vector3(1,0,1)).floor()
 	if tile_id != previous_tile_id:
 		for data in grass_multimeshes:

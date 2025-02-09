@@ -31,7 +31,6 @@ func _ready():
 #func _rebake_root():
 	#bake_navigation_mesh()
 
-
 func get_aabb_global_endpoints(mesh_instance) -> Array:
 	if not is_instance_valid(mesh_instance):
 		return []

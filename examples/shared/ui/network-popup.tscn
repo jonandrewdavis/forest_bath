@@ -1,198 +1,212 @@
-[gd_scene load_steps=5 format=3 uid="uid://badtpsxn5lago"]
+[gd_scene load_steps=6 format=3 uid="uid://badtpsxn5lago"]
 
 [ext_resource type="Script" uid="uid://bvp3jdfi0nq4" path="res://examples/shared/ui/network_popup.gd" id="1_1h7aa"]
 [ext_resource type="Script" uid="uid://w7kdslvls2td" path="res://examples/shared/scripts/lan-bootstrapper.gd" id="1_dy86e"]
 [ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://assets/themes/MinimalUI4/MinimalUI.tres" id="1_sruoj"]
+[ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://assets/themes/MinimalUI4/Strait-Regular.ttf" id="2_bnt5e"]
 [ext_resource type="Script" uid="uid://ck4pq6yjbdjcq" path="res://examples/shared/scripts/noray-bootstrapper.gd" id="2_fgck5"]
 
 [node name="Network Popup" type="TabContainer"]
-custom_minimum_size = Vector2(360, 240)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.5
-offset_top = -48.5
-offset_right = 125.5
-offset_bottom = 48.5
-grow_horizontal = 2
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = -534.0
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 theme = ExtResource("1_sruoj")
-current_tab = 1
+theme_override_fonts/font = ExtResource("2_bnt5e")
+theme_override_font_sizes/font_size = 21
+current_tab = 0
+clip_tabs = false
 script = ExtResource("1_1h7aa")
 
-[node name="LAN" type="VBoxContainer" parent="."]
-visible = false
+[node name="Single Player" type="VBoxContainer" parent="."]
 layout_mode = 2
-alignment = 1
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LAN"]
+[node name="MarginContainer" type="MarginContainer" parent="Single Player"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="StartSinglePlayer" type="Button" parent="Single Player/MarginContainer"]
+layout_mode = 2
+text = "Play
+"
+
+[node name="Multiplayer - Local" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+alignment = 1
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Multiplayer - Local"]
 layout_mode = 2
 alignment = 1
 
-[node name="NicknameRow" type="HBoxContainer" parent="LAN/VBoxContainer"]
+[node name="NicknameRow" type="HBoxContainer" parent="Multiplayer - Local/VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="NicknameLabel" type="Label" parent="LAN/VBoxContainer/NicknameRow"]
+[node name="NicknameLabel" type="Label" parent="Multiplayer - Local/VBoxContainer/NicknameRow"]
 layout_mode = 2
 text = "Nickname
 "
 
-[node name="Nickname" type="LineEdit" parent="LAN/VBoxContainer/NicknameRow"]
+[node name="Nickname" type="LineEdit" parent="Multiplayer - Local/VBoxContainer/NicknameRow"]
 layout_mode = 2
 
-[node name="Address Row" type="HBoxContainer" parent="LAN/VBoxContainer"]
+[node name="Address Row" type="HBoxContainer" parent="Multiplayer - Local/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="Address Label" type="Label" parent="LAN/VBoxContainer/Address Row"]
+[node name="Address Label" type="Label" parent="Multiplayer - Local/VBoxContainer/Address Row"]
 layout_mode = 2
 text = "Address:"
 
-[node name="Address LineEdit" type="LineEdit" parent="LAN/VBoxContainer/Address Row"]
+[node name="Address LineEdit" type="LineEdit" parent="Multiplayer - Local/VBoxContainer/Address Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "localhost"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LAN/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Multiplayer - Local/VBoxContainer"]
 layout_mode = 2
 
-[node name="Port Label" type="Label" parent="LAN/VBoxContainer/HBoxContainer"]
+[node name="Port Label" type="Label" parent="Multiplayer - Local/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Port:"
 
-[node name="Port LineEdit" type="LineEdit" parent="LAN/VBoxContainer/HBoxContainer"]
+[node name="Port LineEdit" type="LineEdit" parent="Multiplayer - Local/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "16384"
 
-[node name="Actions Row" type="HBoxContainer" parent="LAN"]
+[node name="Actions Row" type="HBoxContainer" parent="Multiplayer - Local"]
 layout_mode = 2
 
-[node name="Host Button" type="Button" parent="LAN/Actions Row"]
+[node name="Host Button" type="Button" parent="Multiplayer - Local/Actions Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Host"
 
-[node name="Join Button" type="Button" parent="LAN/Actions Row"]
+[node name="Join Button" type="Button" parent="Multiplayer - Local/Actions Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Join"
 
-[node name="Remote" type="VBoxContainer" parent="."]
+[node name="Multiplayer - Remote" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 2
-metadata/_tab_index = 1
+metadata/_tab_index = 2
 
-[node name="NicknameRow" type="HBoxContainer" parent="Remote"]
+[node name="NicknameRow" type="HBoxContainer" parent="Multiplayer - Remote"]
 visible = false
 layout_mode = 2
 
-[node name="NicknameLabel" type="Label" parent="Remote/NicknameRow"]
+[node name="NicknameLabel" type="Label" parent="Multiplayer - Remote/NicknameRow"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Nickname
 "
 
-[node name="Nickname" type="LineEdit" parent="Remote/NicknameRow"]
+[node name="Nickname" type="LineEdit" parent="Multiplayer - Remote/NicknameRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Noray Address Row" type="HBoxContainer" parent="Remote"]
+[node name="Noray Address Row" type="HBoxContainer" parent="Multiplayer - Remote"]
 layout_mode = 2
 
-[node name="Address Label" type="Label" parent="Remote/Noray Address Row"]
+[node name="Address Label" type="Label" parent="Multiplayer - Remote/Noray Address Row"]
 layout_mode = 2
 text = "noray host:"
 
-[node name="Address LineEdit" type="LineEdit" parent="Remote/Noray Address Row"]
+[node name="Address LineEdit" type="LineEdit" parent="Multiplayer - Remote/Noray Address Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "tomfol.io:8890"
 placeholder_text = "noray.example.com:8890"
 
-[node name="OID Row" type="HBoxContainer" parent="Remote"]
+[node name="OID Row" type="HBoxContainer" parent="Multiplayer - Remote"]
 layout_mode = 2
 
-[node name="OID Label" type="Label" parent="Remote/OID Row"]
+[node name="OID Label" type="Label" parent="Multiplayer - Remote/OID Row"]
 layout_mode = 2
 text = "Open ID: "
 
-[node name="OID Value" type="LineEdit" parent="Remote/OID Row"]
+[node name="OID Value" type="LineEdit" parent="Multiplayer - Remote/OID Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "123456789"
 editable = false
 
-[node name="Noray Actions Row" type="HBoxContainer" parent="Remote"]
+[node name="Noray Actions Row" type="HBoxContainer" parent="Multiplayer - Remote"]
 layout_mode = 2
 
-[node name="Connect Button" type="Button" parent="Remote/Noray Actions Row"]
+[node name="Connect Button" type="Button" parent="Multiplayer - Remote/Noray Actions Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Connect"
 
-[node name="Disconnect Button" type="Button" parent="Remote/Noray Actions Row"]
+[node name="Disconnect Button" type="Button" parent="Multiplayer - Remote/Noray Actions Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Disconnect"
 
-[node name="HSeparator" type="HSeparator" parent="Remote"]
+[node name="HSeparator" type="HSeparator" parent="Multiplayer - Remote"]
 layout_mode = 2
 
-[node name="Connect Host Row" type="HBoxContainer" parent="Remote"]
+[node name="Connect Host Row" type="HBoxContainer" parent="Multiplayer - Remote"]
 layout_mode = 2
 
-[node name="Host Label" type="Label" parent="Remote/Connect Host Row"]
+[node name="Host Label" type="Label" parent="Multiplayer - Remote/Connect Host Row"]
 layout_mode = 2
 text = "Target Host: "
 
-[node name="Host LineEdit" type="LineEdit" parent="Remote/Connect Host Row"]
+[node name="Host LineEdit" type="LineEdit" parent="Multiplayer - Remote/Connect Host Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Host OID"
 
-[node name="Connect Actions Row" type="HBoxContainer" parent="Remote"]
+[node name="Connect Actions Row" type="HBoxContainer" parent="Multiplayer - Remote"]
 layout_mode = 2
 
-[node name="Host Button" type="Button" parent="Remote/Connect Actions Row"]
+[node name="Host Button" type="Button" parent="Multiplayer - Remote/Connect Actions Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Host"
 
-[node name="Join Button" type="Button" parent="Remote/Connect Actions Row"]
+[node name="Join Button" type="Button" parent="Multiplayer - Remote/Connect Actions Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Join"
 
-[node name="Force Relay Checkbox" type="CheckBox" parent="Remote/Connect Actions Row"]
+[node name="Force Relay Checkbox" type="CheckBox" parent="Multiplayer - Remote/Connect Actions Row"]
 layout_mode = 2
+button_pressed = true
 text = "Force Relay"
 
 [node name="LAN Bootstrapper" type="Node" parent="." node_paths=PackedStringArray("connect_ui", "address_input", "port_input")]
 script = ExtResource("1_dy86e")
 connect_ui = NodePath("..")
-address_input = NodePath("../LAN/VBoxContainer/Address Row/Address LineEdit")
-port_input = NodePath("../LAN/VBoxContainer/HBoxContainer/Port LineEdit")
+address_input = NodePath("../Multiplayer - Local/VBoxContainer/Address Row/Address LineEdit")
+port_input = NodePath("../Multiplayer - Local/VBoxContainer/HBoxContainer/Port LineEdit")
 
 [node name="Noray Bootstrapper" type="Node" parent="." node_paths=PackedStringArray("connect_ui", "noray_address_input", "oid_input", "host_oid_input", "force_relay_check")]
 script = ExtResource("2_fgck5")
 connect_ui = NodePath("..")
-noray_address_input = NodePath("../Remote/Noray Address Row/Address LineEdit")
-oid_input = NodePath("../Remote/OID Row/OID Value")
-host_oid_input = NodePath("../Remote/Connect Host Row/Host LineEdit")
-force_relay_check = NodePath("../Remote/Connect Actions Row/Force Relay Checkbox")
+noray_address_input = NodePath("../Multiplayer - Remote/Noray Address Row/Address LineEdit")
+oid_input = NodePath("../Multiplayer - Remote/OID Row/OID Value")
+host_oid_input = NodePath("../Multiplayer - Remote/Connect Host Row/Host LineEdit")
+force_relay_check = NodePath("../Multiplayer - Remote/Connect Actions Row/Force Relay Checkbox")
 
-[connection signal="pressed" from="LAN/Actions Row/Host Button" to="LAN Bootstrapper" method="host"]
-[connection signal="pressed" from="LAN/Actions Row/Join Button" to="LAN Bootstrapper" method="join"]
-[connection signal="pressed" from="Remote/Noray Actions Row/Connect Button" to="Noray Bootstrapper" method="connect_to_noray"]
-[connection signal="pressed" from="Remote/Noray Actions Row/Disconnect Button" to="Noray Bootstrapper" method="disconnect_from_noray"]
-[connection signal="pressed" from="Remote/Connect Actions Row/Host Button" to="Noray Bootstrapper" method="host"]
-[connection signal="pressed" from="Remote/Connect Actions Row/Join Button" to="Noray Bootstrapper" method="join"]
+[connection signal="pressed" from="Single Player/MarginContainer/StartSinglePlayer" to="LAN Bootstrapper" method="_on_start_single_player_pressed"]
+[connection signal="pressed" from="Multiplayer - Local/Actions Row/Host Button" to="LAN Bootstrapper" method="host"]
+[connection signal="pressed" from="Multiplayer - Local/Actions Row/Join Button" to="LAN Bootstrapper" method="join"]
+[connection signal="pressed" from="Multiplayer - Remote/Noray Actions Row/Connect Button" to="Noray Bootstrapper" method="connect_to_noray"]
+[connection signal="pressed" from="Multiplayer - Remote/Noray Actions Row/Disconnect Button" to="Noray Bootstrapper" method="disconnect_from_noray"]
+[connection signal="pressed" from="Multiplayer - Remote/Connect Actions Row/Host Button" to="Noray Bootstrapper" method="host"]
+[connection signal="pressed" from="Multiplayer - Remote/Connect Actions Row/Join Button" to="Noray Bootstrapper" method="join"]

@@ -55,7 +55,7 @@ func set_movement():
 		enemy.state.FREE:
 			target_pos = enemy_target.global_position
 			near = (target_pos.distance_to(enemy.global_position) < attack_near_dist)
-			if enemy.nav_agent_3d.is_navigation_finished():
+			if enemy.nav_agent_3d && enemy.nav_agent_3d.is_navigation_finished():
 				speed.y = 0.0
 			else:
 				speed.y = .5

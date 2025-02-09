@@ -5,14 +5,12 @@
 [ext_resource type="Shader" uid="uid://ilgfpa6fqkkg" path="res://utility scripts/filmgrain.gdshader" id="3_1ypwr"]
 [ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="3_icc4p"]
 [ext_resource type="Shader" uid="uid://dagl0um7fq4qw" path="res://utility scripts/horror_pixels.gdshader" id="4_mglur"]
-[ext_resource type="Environment" uid="uid://c8oyix4qs0l7j" path="res://assets/environment/SecondForestEnv.tres" id="5_hv8je"]
-[ext_resource type="PackedScene" uid="uid://bnov3r3udtsa3" path="res://assets/environment/forest_sun.tscn" id="5_hyp44"]
+[ext_resource type="Shader" uid="uid://dujx3qjmc66iv" path="res://utility scripts/dithershader.gdshader" id="5_xbgo5"]
 [ext_resource type="AudioStream" uid="uid://cltwo5xg7hrjg" path="res://audio/ambience-wind-blowing-through-trees-01-186986.mp3" id="8_am4re"]
 [ext_resource type="AudioStream" uid="uid://bhx06184tdu7w" path="res://audio/soft-wind-outside-sound-ambient-141989.mp3" id="9_xv7lm"]
 [ext_resource type="Texture2D" uid="uid://eue4sgjiwyos" path="res://shirin.png" id="11_560ui"]
-[ext_resource type="PackedScene" uid="uid://b6nuyrcy1rigj" path="res://level/scenes/menu_environment.tscn" id="13_insfy"]
+[ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://assets/themes/MinimalUI4/MinimalUI.tres" id="13_aj1qi"]
 [ext_resource type="PackedScene" uid="uid://badtpsxn5lago" path="res://examples/shared/ui/network-popup.tscn" id="13_onpkm"]
-[ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://assets/themes/MinimalUI4/Strait-Regular.ttf" id="14_aj1qi"]
 [ext_resource type="AudioStream" uid="uid://dw4bplkv57i6i" path="res://assets/environment/GodotGrass/grass_loop.wav" id="21_m577m"]
 [ext_resource type="AudioStream" uid="uid://d4mv7rx862p3o" path="res://assets/environment/GodotGrass/insects_loop.wav" id="23_aoolo"]
 
@@ -29,6 +27,14 @@ shader_parameter/contrast = 3.0
 shader_parameter/scale = 1.5
 shader_parameter/rotation = 0.08
 shader_parameter/resolution_downsampling = 1.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onpkm"]
+shader = ExtResource("5_xbgo5")
+shader_parameter/inner_radius = 0.1
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.5
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = null
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7t4rf"]
 
@@ -64,6 +70,11 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_aj1qi"]
+top_radius = 15.0
+bottom_radius = 15.0
+height = 10.0
+
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
 player_scene = ExtResource("2_5wxyk")
@@ -86,15 +97,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Environment" type="Node3D" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = ExtResource("5_hv8je")
-
-[node name="ForestSun" parent="Environment" instance=ExtResource("5_hyp44")]
-directional_shadow_mode = 0
-directional_shadow_max_distance = 9.9
-sky_mode = 1
+[node name="Dither" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_onpkm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GrassLoopAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_m577m")
@@ -135,11 +145,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Menu"]
-custom_minimum_size = Vector2(650, 800)
+visible = false
 layout_mode = 2
-offset_top = -157.0
-offset_right = 650.0
-offset_bottom = 1370.0
+offset_right = 569.0
+offset_bottom = 649.0
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
@@ -149,18 +158,24 @@ color = Color(0, 0, 0, 0.811765)
 self_modulate = Color(1, 1, 1, 0.129412)
 layout_mode = 0
 offset_left = 2.0
-offset_top = -66.0
-offset_right = 627.0
-offset_bottom = 1187.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = SubResource("NoiseTexture2D_yhx56")
 expand_mode = 1
 stretch_mode = 1
 
 [node name="MainContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 611.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -224.5
+offset_right = 288.0
+offset_bottom = 224.5
+grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 alignment = 1
@@ -184,7 +199,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("3_icc4p")
-theme_override_font_sizes/font_size = 70
+theme_override_font_sizes/font_size = 50
 text = "Forest Bath"
 
 [node name="Label2" type="Label" parent="Menu/MainContainer/VBoxContainer"]
@@ -205,7 +220,6 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Network Popup" parent="Menu/MainContainer/NetfoxMenuContainer" node_paths=PackedStringArray("level_root") instance=ExtResource("13_onpkm")]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("14_aj1qi")
 level_root = NodePath("../../../..")
 
 [node name="OldMenu" type="VBoxContainer" parent="Menu/MainContainer/NetfoxMenuContainer"]
@@ -350,12 +364,9 @@ alignment = 1
 
 [node name="Quit" type="Button" parent="Menu/MainContainer/Option4"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
-theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
-theme_override_fonts/font = ExtResource("3_icc4p")
-theme_override_font_sizes/font_size = 24
-text = "QUIT"
-flat = true
+theme = ExtResource("13_aj1qi")
+text = "Quit
+"
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu/MainContainer"]
 layout_mode = 2
@@ -438,10 +449,11 @@ spawn_path = NodePath("../EnemiesContainer")
 _spawnable_scenes = PackedStringArray("uid://brcob4a2vngyt", "uid://b58rh24bdj4p0", "uid://c4oockhjnrg6", "uid://dxlkgbr1p580", "uid://o0lqdvwkq6n4", "uid://donc6jtlr06dp", "uid://ds7vr6al5jaed")
 spawn_path = NodePath("../EnvironmentContainer")
 
-[node name="MenuEnvironmentArea" parent="." instance=ExtResource("13_insfy")]
+[node name="FirstIgnore" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_aj1qi")
 
 [connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option5/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Menu/MainContainer/Option4/Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="Menu/MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/MenuMasterSlider" to="." method="_on_menu_master_slider_value_changed"]

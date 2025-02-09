@@ -12,9 +12,9 @@ func host_only():
 	#var brawler_spawner: BrawlerSpawner = %"Brawler Spawner"
 	#if brawler_spawner != null:
 		#brawler_spawner.spawn_host_avatar = false
-	host()
+	host(false)
 
-func host():
+func host(single_player: bool):
 	var _host = _parse_input()
 	if _host.size() == 0:
 		return ERR_CANT_RESOLVE
@@ -47,7 +47,10 @@ func host():
 	connect_ui.hide()
 	
 	# NOTE: ADDED!
-	level_root._on_host_pressed()
+	if single_player: 
+		level_root._on_host_pressed(true)
+	else:
+		level_root._on_host_pressed(false)
 	
 	# NOTE: This is not needed when using NetworkEvents
 	# However, this script also runs in multiplayer-simple where NetworkEvents
@@ -112,3 +115,13 @@ func _parse_input() -> Dictionary:
 		"address": address,
 		"port": port
 	}
+
+
+func _on_start_single_player_pressed() -> void:
+	connect_ui.hide()
+	Network.player_info["nick"] = "Player_" + str(1)
+	Network.players[1] = Network.player_info
+	Hub.player_connected.emit(1, Network.player_info)
+	
+	host(true)
+	level_root._on_single_player_start()

@@ -46,6 +46,9 @@ func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	Hub.player_connected.emit(peer_id, player_info)
+
+
+
 	
 func _on_player_connected(id):
 	#

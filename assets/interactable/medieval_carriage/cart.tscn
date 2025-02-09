@@ -285,13 +285,4 @@ triggering_node = NodePath("..")
 sound_trigger_signal = "death_signal"
 play_delay = 1.0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31562, 0.361853)
-light_color = Color(1, 0.628031, 0.466544, 1)
-light_energy = 1.388
-light_indirect_energy = 2.165
-light_volumetric_fog_energy = 3.334
-
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
-
 [editable path="Sketchfab_Scene"]

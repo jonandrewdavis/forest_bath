@@ -70,9 +70,9 @@ environment_root_tracker = NodePath("Marker3D")
 heightmap = ExtResource("2_3f4kl")
 
 [node name="moss_rock_08" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 64
+instance_amount = 16
 generate_colliders = true
 pos_randomize = 20.0
 instance_min_scale = 0.4
@@ -85,11 +85,12 @@ rot_x_randomize = 4.0
 rot_z_randomize = 2.0
 instance_mesh = SubResource("ArrayMesh_phdkx")
 instance_collision = ExtResource("5_rev6c")
+update_frequency = 100.0
 
 [node name="moss_rock_14" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 64
+instance_amount = 16
 generate_colliders = true
 pos_randomize = 13.0
 instance_min_scale = 0.1
@@ -100,11 +101,12 @@ rot_x_randomize = 2.0
 rot_z_randomize = 4.0
 instance_mesh = SubResource("ArrayMesh_vrmt5")
 instance_collision = ExtResource("7_yewy6")
+update_frequency = 2000.0
 
 [node name="arbol1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 144
+instance_amount = 14
 generate_colliders = true
 collider_coverage_dist = 100.0
 pos_randomize = 4.0
@@ -114,11 +116,12 @@ scale_randomize = 2.0
 rot_y_randomize = 12.0
 instance_mesh = ExtResource("3_hqwlf")
 instance_collision = SubResource("CapsuleShape3D_kvtob")
+update_frequency = 5000.0
 
 [node name="arbol7" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 121
+instance_amount = 12
 generate_colliders = true
 pos_randomize = 14.0
 instance_min_scale = 0.2
@@ -128,11 +131,12 @@ instance_spacing = 19
 rot_y_randomize = 7.0
 instance_mesh = ExtResource("11_505i2")
 instance_collision = SubResource("CapsuleShape3D_vcx1a")
+update_frequency = 9000.0
 
 [node name="arbol9" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 64
+instance_amount = 16
 generate_colliders = true
 pos_randomize = 12.0
 instance_min_scale = 0.4
@@ -141,10 +145,12 @@ scale_randomize = 2.5
 rot_y_randomize = 4.0
 instance_mesh = ExtResource("12_ossvq")
 instance_collision = SubResource("CapsuleShape3D_w50me")
+update_frequency = 100.0
 
 [node name="arbol8" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
+instance_amount = 33
 generate_colliders = true
 pos_randomize = 7.0
 instance_min_scale = 0.2
@@ -158,11 +164,12 @@ rot_x_randomize = 0.1
 rot_z_randomize = 0.05
 instance_mesh = ExtResource("13_ltu1w")
 instance_collision = SubResource("CapsuleShape3D_pwyh0")
+update_frequency = 900.0
 
 [node name="thyme" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 200
+instance_amount = 10
 pos_randomize = 15.0
 instance_min_scale = 0.025
 instance_height = 0.004
@@ -173,12 +180,12 @@ instance_Y_rot = 2.142
 instance_X_rot = 0.04
 instance_Z_rot = 0.08
 instance_mesh = ExtResource("12_bgi6p")
-update_frequency = 0.3
+update_frequency = 10000.0
 
 [node name="bush" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 200
+instance_amount = 10
 pos_randomize = 12.0
 instance_min_scale = 0.01
 instance_spacing = 11
@@ -189,11 +196,12 @@ instance_Z_rot = 0.015
 rot_x_randomize = 0.02
 rot_z_randomize = 0.2
 instance_mesh = ExtResource("13_lex87")
+update_frequency = 20000.0
 
 [node name="bush2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 script = ExtResource("2_o747f")
-instance_amount = 300
+instance_amount = 30
 pos_randomize = 19.0
 instance_min_scale = 0.01
 instance_height = 0.005
@@ -205,13 +213,14 @@ instance_X_rot = 1.6
 instance_Z_rot = 3.0
 rot_z_randomize = 0.4
 instance_mesh = ExtResource("14_jleyb")
+update_frequency = 4000.0
 
 [node name="BakeTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.994, 0, 249.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 
 [node name="GrassMain" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_in6vh")]
 player = NodePath("../Marker3D")

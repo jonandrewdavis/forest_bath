@@ -7,7 +7,7 @@ extends Node3D
 @onready var ignore_zone_mesh = CylinderMesh.new()
 
 const HEIGHTMAP_SCALE = 5.0
-const HEIGHTMAP_NOISE_WIDTH = 1024
+const HEIGHTMAP_NOISE_WIDTH = 512
 
 const h_scale = 1.0
 

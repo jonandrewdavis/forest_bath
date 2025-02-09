@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfptfhliawf5j"]
+
+[ext_resource type="PackedScene" uid="uid://c0y33rpanjd8e" path="res://assets/terrain_2_blender.blend" id="1_5b3xt"]
+[ext_resource type="Script" uid="uid://c8hhxsqvxgtlg" path="res://terrain_two.gd" id="1_rngtg"]
+[ext_resource type="Texture2D" uid="uid://cl3023xxivus5" path="res://assets/new_grass/Grass 11 - 256x256.png" id="2_vellk"]
+[ext_resource type="Environment" uid="uid://cvhxedd5g0l7w" path="res://MountainEnvironment.tres" id="5_5kiiy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rngtg"]
+albedo_texture = ExtResource("2_vellk")
+metallic_specular = 0.0
+uv1_scale = Vector3(15, 15, 15)
+
+[node name="TerrainTwo" type="Node3D"]
+script = ExtResource("1_rngtg")
+
+[node name="terrain_2_blender" parent="." instance=ExtResource("1_5b3xt")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1.36753, 0)
+
+[node name="Plane" parent="terrain_2_blender" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_rngtg")
+
+[node name="StaticBody3D" parent="terrain_2_blender/Plane" index="0"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("5_5kiiy")
+
+[node name="ForestSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.51735, -0.0898537, 0.851044, -0.0891068, 0.983411, 0.157997, -0.851122, -0.157574, 0.500761, 0, 9.87776, 0)
+light_energy = 2.0
+
+[editable path="terrain_2_blender"]

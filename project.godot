@@ -10,8 +10,7 @@ config_version=5
 
 [application]
 
-config/name="ForestBath"
-config/version="2.0.0"
+config/name="Forest Bath"
 run/main_scene="res://level/scenes/level.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://forest_bath.png"
@@ -40,12 +39,9 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=2073
-window/size/viewport_height=1167
-window/size/mode=4
 window/size/resizable=false
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/energy_saving/keep_screen_on=false
+window/dpi/allow_hidpi=false
 window/vsync/vsync_mode=0
 
 [editor_plugins]
@@ -256,10 +252,6 @@ debug_5={
 3d_physics/layer_3="Targets"
 3d_physics/layer_4="Interactable"
 3d_physics/layer_5="Ladder"
-
-[navigation]
-
-3d/merge_rasterizer_cell_scale=0.5
 
 [physics]
 

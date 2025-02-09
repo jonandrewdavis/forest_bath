@@ -11,7 +11,7 @@ var heightmap : Texture2D
 const TILE_SIZE = 5.0
 const MAP_RADIUS = 200.0
 const HEIGHTMAP_SCALE = 5.0
-const HEIGHTMAP_NOISE_WIDTH = 1024
+const HEIGHTMAP_NOISE_WIDTH = 512
 
 @export var instance_amount : int = 100  # Number of instances to generate
 @export var generate_colliders: bool = false

@@ -317,7 +317,6 @@ func _physics_process(_delta):
 	move_and_slide()
 	apply_gravity(_delta)
 	fall_check()
-	out_of_bounds_check()
 	
 func _input(_event:InputEvent):
 	if not is_multiplayer_authority():
@@ -826,7 +825,10 @@ func restore():
 	coins = 0
 	_on_update_coin()
 	health_received.emit(CONST_MAX_HEALTH)
-	global_position = get_spawn_point() + Hub.get_cart().global_position
+	if Hub.get_cart(): 
+		global_position = get_spawn_point() + Hub.get_cart().global_position
+	else:
+		global_position = get_spawn_point() + Vector3.ONE
 	is_dead = false
 	visible = true
 	current_state = state.FREE
@@ -924,10 +926,13 @@ func set_root_climb(delta):
 		current_state = state.FREE
 		#free_started.emit()
 		
-func calc_direction() -> Vector3 :
-	var new_direction = (current_camera.global_transform.basis.z * input_dir.y + \
-	current_camera.global_transform.basis.x * input_dir.x)
-	return new_direction
+func calc_direction() -> Vector3:
+	if current_camera: 
+		var new_direction = (current_camera.global_transform.basis.z * input_dir.y + \
+		current_camera.global_transform.basis.x * input_dir.x)
+		return new_direction	
+	else:
+		return Vector3.ZERO
 
 # New: - AD
 func calc_direction_based_on_camera() -> Vector3:
@@ -1117,7 +1122,6 @@ func flash_stamina():
 	await get_tree().create_timer(0.1).timeout
 	%StaminaContainer.modulate.a = 1
 
-
 func stamina_drain():
 	if is_on_floor() == false:
 		return
@@ -1129,50 +1133,9 @@ func stamina_drain():
 var mult_lerp = 0.0001
 var dark_lerp = 0.8
 	
-func out_of_bounds_check():
-	if abs(global_position.x) < 350.0 && abs(global_position.z) < 350.0:
-		fog(false)
-		return
-	
-	if abs(global_position.x) > 490.0 or abs(global_position.z) > 490.0:
-		if not $RelocateTimer.is_stopped():
-			return
-		var sign1 = 1 if (randi_range(0,1) == 1) else -1
-		var sign2 = 1 if (randi_range(0,1) == 1) else -1
-		global_position.x = randi_range(0, 450) * sign1
-		global_position.z = randi_range(0, 450) * sign2
-		global_position.y = 1.7
-		fog(true, 0.01, 0.0)
-		Hub.get_environment_root()._on_hide()
-		$RelocateTimer.start(1.5)
-		return
-
-	if abs(global_position.x) > 465.0 or abs(global_position.z) > 465.0:
-		fog(true, 0.001, 0.3)
-	elif abs(global_position.x) > 430.0 or abs(global_position.z) > 430.0:
-		fog(true, 0.0004, 0.6)
-	elif abs(global_position.x) > 390.0 or abs(global_position.z) > 390.0:
-		fog(true, 0.0002, 0.9)
-	elif abs(global_position.x) > 350.0 or abs(global_position.z) > 350.0:
-		fog(true, 0.0001)
-
 func _show_environment():
 	Hub.get_environment_root()._on_show()
 
-func fog(on, mult = 0.0005, dark = 1.0):
-	if $RelocateTimer.time_left > 0:
-		return
-	mult_lerp = lerp(mult_lerp, mult, 0.5)
-	dark_lerp = lerp(dark_lerp, dark, 0.5)
-	if on:
-		if abs(global_position.x) > abs(global_position.z):
-			Hub.world_environment.environment.volumetric_fog_density = clampf(mult_lerp * abs(global_position.x), 0.07, 1.0)
-		else:
-			Hub.world_environment.environment.volumetric_fog_density = clampf(mult_lerp * abs(global_position.z), 0.07, 1.0)
-		Hub.world_environment.environment.adjustment_brightness = dark_lerp
-	else:
-		Hub.world_environment.environment.volumetric_fog_density = clampf(mult_lerp, 0.07, 1.0)
-		Hub.world_environment.environment.adjustment_brightness = dark_lerp
 		
 # TODO: more Signals emit
 func get_loot():

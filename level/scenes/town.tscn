@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4oockhjnrg6"]
 
 [ext_resource type="PackedScene" uid="uid://ch6528py03hat" path="res://assets/interactable/campfire/campfire.tscn" id="1_hv11k"]
-[ext_resource type="Script" path="res://level/scripts/encounter.gd" id="1_jrmak"]
+[ext_resource type="Script" uid="uid://b5y0rstp0xbyx" path="res://level/scripts/encounter.gd" id="1_jrmak"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nlusu"]
 top_radius = 18.0

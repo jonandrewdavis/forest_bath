@@ -24,7 +24,7 @@ func _open_or_close_debug():
 		DebugMenu.show()
 
 func _update_debug_text():
-	var encounters_count =	0
+	var encounters_count =0
 	for object in Hub.environment_container.get_children():
 		if object.is_in_group('encounters'): encounters_count = encounters_count + 1
 
@@ -44,7 +44,7 @@ func _update_debug_text():
 		"Enemies: " + str(Hub.enemies_container.get_child_count()), 
 		"Enemies (Out of bounds): " + str(out_of_bounds),
 		"Encounters: " + str(encounters_count),
-		"Cart Dist: " + str(Hub.get_cart().global_position.distance_to(player.global_position))
+		#"Cart Dist: " + str(Hub.get_cart().global_position.distance_to(player.global_position))
 	]
 	
 	var text_with_p = []

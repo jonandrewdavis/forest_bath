@@ -5,8 +5,6 @@ frequency = 0.025
 fractal_gain = 0.1
 
 [resource]
-width = 1024
-height = 1024
 seamless = true
 seamless_blend_skirt = 0.0
 noise = SubResource("FastNoiseLite_urkrv")

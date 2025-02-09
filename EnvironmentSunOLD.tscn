@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddao80fiyrwn0"]
+
+[ext_resource type="Environment" uid="uid://c8oyix4qs0l7j" path="res://assets/environment/SecondForestEnv.tres" id="1_rxvpo"]
+
+[node name="Environment" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_rxvpo")
+
+[node name="ForestSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.973551, 0.22847, 0, -0.22847, 0.973551, 0, 0, 0)
+light_energy = 3.0
+light_bake_mode = 1
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 50.0
+
+[node name="ForestSun2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.997078, 0.0763883, 0, -0.0763883, -0.997078, 0, 0, 0)
+light_bake_mode = 1
+directional_shadow_mode = 0
+directional_shadow_max_distance = 50.0

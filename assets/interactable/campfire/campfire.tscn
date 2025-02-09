@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://ch6528py03hat"]
+[gd_scene load_steps=19 format=3 uid="uid://ch6528py03hat"]
 
 [ext_resource type="PackedScene" uid="uid://b13e1f13iy5t7" path="res://assets/interactable/campfire/campfire_asset.gltf" id="1_s7apb"]
-[ext_resource type="Shader" path="res://utility scripts/FireFromGameIdeaOrg.gdshader" id="2_eo14m"]
-[ext_resource type="PackedScene" uid="uid://dvs3icvtoe84r" path="res://player/equipment_system/equipment/torch_gadget.tscn" id="4_ldrb6"]
+[ext_resource type="Shader" uid="uid://c6ju8gvyjnksu" path="res://utility scripts/FireFromGameIdeaOrg.gdshader" id="2_eo14m"]
 [ext_resource type="Texture2D" uid="uid://b82ottty1epfo" path="res://assets/environment_objects/buildings/tower/textures/Dirty_Stone_01_UV_H_CM_1.jpg" id="4_x7sgt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_47hct"]
@@ -152,17 +151,6 @@ mesh = SubResource("QuadMesh_ravdd")
 transform = Transform3D(0.607001, 0, 0.794701, 0, 1, 0, -0.794701, 0, 0.607001, -0.0485755, 1.0078, 0.0152481)
 mesh = SubResource("QuadMesh_g12r4")
 
-[node name="Torch_Gadget" parent="CamfireContainer" instance=ExtResource("4_ldrb6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122676, 0, -0.0265089)
-
-[node name="FlameParticles" parent="CamfireContainer/Torch_Gadget" index="2"]
-lifetime = 2.2
-randomness = 0.2
-
-[node name="TorchLight" parent="CamfireContainer/Torch_Gadget" index="3"]
-visible = false
-omni_attenuation = 1.0
-
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="CamfireContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114788, 0, 0)
 visible = false
@@ -184,5 +172,3 @@ shape = SubResource("CapsuleShape3D_fpwmx")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CamfireContainer/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.500184, 0)
 shape = SubResource("BoxShape3D_3b87b")
-
-[editable path="CamfireContainer/Torch_Gadget"]
