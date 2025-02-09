@@ -31,7 +31,7 @@ var players_container: Node3D
 var enemies_container: Node3D
 
 var world_environment: WorldEnvironment
-var forest_sun: DirectionalLight3D
+var forest_sun
 
 const player_scene = preload("res://player/player_charbody3d.tscn")
 
@@ -97,7 +97,7 @@ func get_environment_root() -> Node3D:
 	return environment_container.get_node("EnvironmentInstanceRoot")
 
 @rpc("any_peer", 'call_local')
-func spawn_enemy_at_location(_new_location: Vector3, _dist: = 60.0, _target_name = null, _radius = 10, _brute = false):
+func spawn_enemy_at_location(_new_location: Vector3, _dist: = 40.0, _target_name = null, _radius = 10, _brute = false):
 	if multiplayer.is_server():
 		var chance_archer = randi_range(0, 2)
 		var spawn_point = Vector2.from_angle(randf() * 2 * PI) * _radius # spawn radius

@@ -32,7 +32,7 @@ shader_parameter/resolution_downsampling = 1.8
 shader = ExtResource("5_xbgo5")
 shader_parameter/inner_radius = 0.1
 shader_parameter/outer_radius = 1.0
-shader_parameter/vignette_strength = 0.5
+shader_parameter/vignette_strength = 0.7
 shader_parameter/dither_strength = 0.03
 shader_parameter/vignette_color = null
 

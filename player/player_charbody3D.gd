@@ -250,7 +250,7 @@ func _ready():
 	store_loot.connect(_on_loot_added)
 	
 	# TODO: Remove before launch
-	DebugMenu.style = DebugMenu.Style.VISIBLE_COMPACT
+	DebugMenu.style = DebugMenu.Style.VISIBLE_DETAILED
 	DebugMenu.hide()
 	
 ## Makes variable changes for each state, primiarily used for updating movement speeds

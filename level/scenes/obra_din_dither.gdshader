@@ -1,76 +1,83 @@
-/*
-This shader is under MIT license. Feel free to use, improve and
-change this shader according to your needs and consider sharing
-the modified result to godotshaders.com.
-*/
+shader_type spatial;
 
-shader_type canvas_item;
+render_mode cull_disabled, unshaded;
+uniform sampler2D depth_texture : source_color, hint_depth_texture;
+uniform sampler2D screen_texture : source_color, hint_screen_texture, repeat_disable, filter_nearest;
 
-uniform sampler2D u_dither_tex: repeat_enable;
-uniform sampler2D u_color_tex;
+uniform bool enable_fog = true;
+uniform vec3 fog_color : source_color;
+uniform vec3 noise_color : source_color;
+uniform float fog_distance : hint_range(1, 6000) = 100;
+uniform float fog_fade_range : hint_range(1, 6000) = 50;
+uniform bool enable_noise = true;
+uniform float noise_time_fac : hint_range(0.1, 10) = 4;
+uniform bool enable_color_limitation = true;
+uniform int color_levels : hint_range(2, 256) = 32;
+uniform bool enable_dithering = true;
+uniform float dither_strength : hint_range(0.0, 1.0) = 0.3;
 
-uniform int u_bit_depth;
-uniform float u_contrast;
-uniform float u_offset;
-uniform int u_dither_size;
+float hashOld12(vec2 p){
+	return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453 + (sin((TIME)) / noise_time_fac)) ;
+}
 
-void fragment()
-{
-	// sample the screen texture at the desired output resolution (according to u_dither_size)
-	// this will effectively pixelate the resulting output
-	vec2 screen_size = vec2(textureSize(TEXTURE, 0)) / float(u_dither_size);
-	vec2 screen_sample_uv = floor(UV * screen_size) / screen_size;
-	vec3 screen_col = texture(TEXTURE, screen_sample_uv).rgb;
+vec3 color_mix(vec3 a, vec3 b, float f ){
+	f = clamp(abs(f), 0,1);
+	float invf = 1.0 - f;
+	return (a*f) + (b*invf);
+}
 
-	// calculate pixel luminosity (https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color)
-	float lum = (screen_col.r * 0.299) + (screen_col.g * 0.587) + (screen_col.b * 0.114);
+vec3 quantize_color(vec3 color, int levels) {
+    float quantizer = float(levels - 1);
+    return floor(color * quantizer + 0.5) / quantizer;
+}
 
-	// adjust with contrast and offset parameters
-	float contrast = u_contrast;
-	lum = (lum - 0.5 + u_offset) * contrast + 0.5;
-	lum = clamp(lum, 0.0, 1.0);
+float dither(vec2 position, float brightness) {
+    int x = int(mod(position.x, 4.0));
+    int y = int(mod(position.y, 4.0));
+    int index = x + y * 4;
+    float dithering[16] = float[](
+        0.0, 0.5, 0.125, 0.625,
+        0.75, 0.25, 0.875, 0.375,
+        0.1875, 0.6875, 0.0625, 0.5625,
+        0.9375, 0.4375, 1.0, 0.8125
+    );
+    float threshold = dithering[index];
+    return brightness < threshold ? 0.0 : 1.0;
+}
 
-	// reduce luminosity bit depth to give a more banded visual if desired
-	float bits = float(u_bit_depth);
-	lum = floor(lum * bits) / bits;
+void vertex() {
+  POSITION = vec4(VERTEX.xy, 1.0, 1.0);
+}
 
-	// to support multicolour palettes, we want to dither between the two colours on the palette
-	// which are adjacent to the current pixel luminosity.
-	// to do this, we need to determine which 'band' lum falls into, calculate the upper and lower
-	// bound of that band, then later we will use the dither texture to pick either the upper or
-	// lower colour.
+void fragment(){
+	vec3 screen_color = texture(screen_texture, SCREEN_UV).rgb;
+	vec2 screen_coords = SCREEN_UV * 2.0 - 1.0;
+	float depth = texture(depth_texture, SCREEN_UV).x;
+	vec3 ndc = vec3(screen_coords, depth);
 
-	// get the palette texture size mapped so it is 1px high (so the x value however many colour bands there are)
-	ivec2 col_size = textureSize(u_color_tex, 0);
-	col_size /= col_size.y;
+	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	view.xyz /= view.w;
 
-	float col_x = float(col_size.x) - 1.0; // colour boundaries is 1 less than the number of colour bands
-	float col_texel_size = 1.0 / col_x; // the size of one colour boundary
+	float linear_depth = -view.z;
 
-	lum = max(lum - 0.00001, 0.0); // makes sure our floor calculation below behaves when lum == 1.0
-	float lum_lower = floor(lum * col_x) * col_texel_size;
-	float lum_upper = (floor(lum * col_x) + 1.0) * col_texel_size;
-	float lum_scaled = lum * col_x - floor(lum * col_x); // calculates where lum lies between the upper and lower bound
+	float depth_mask_inv = clamp((linear_depth - (fog_distance - fog_fade_range)) / fog_fade_range, 0.0, 1.0);
 
-	// map the dither texture onto the screen. there are better ways of doing this that makes the dither pattern 'stick'
-	// with objects in the 3D world, instead of being mapped onto the screen. see lucas pope's details posts on how he
-	// achieved this in Obra Dinn: https://forums.tigsource.com/index.php?topic=40832.msg1363742#msg1363742
-	ivec2 noise_size = textureSize(u_dither_tex, 0);
-	vec2 inv_noise_size = vec2(1.0 / float(noise_size.x), 1.0 / float(noise_size.y));
-	vec2 noise_uv = UV * inv_noise_size * vec2(float(screen_size.x), float(screen_size.y));
-	float threshold = texture(u_dither_tex, noise_uv).r;
+	vec3 final_color = screen_color;
 
-	// adjust the dither slightly so min and max aren't quite at 0.0 and 1.0
-	// otherwise we wouldn't get fullly dark and fully light dither patterns at lum 0.0 and 1.0
-	threshold = threshold * 0.99 + 0.005;
-
-	// the lower lum_scaled is, the fewer pixels will be below the dither threshold, and thus will use the lower bound colour,
-	// and vice-versa
-	float ramp_val = lum_scaled < threshold ? 0.0f : 1.0f;
-	// sample at the lower bound colour if ramp_val is 0.0, upper bound colour if 1.0
-	float col_sample = mix(lum_lower, lum_upper, ramp_val);
-	vec3 final_col = texture(u_color_tex, vec2(col_sample, 0.5)).rgb;
-
-	// return the final colour!
-	COLOR.rgb = final_col;
+	if (enable_noise){
+		vec3 twocolornoise = color_mix(fog_color, noise_color, hashOld12(screen_coords));
+		final_color = color_mix(twocolornoise, final_color, depth_mask_inv);
+	}
+	if (enable_fog){
+		final_color = color_mix(fog_color, final_color, depth_mask_inv);
+	}
+	if (enable_color_limitation){
+		final_color = quantize_color(final_color, color_levels);
+	}
+	if (enable_dithering){
+		float brightness = dot(final_color, vec3(0.3, 0.59, 0.11));
+		brightness += dither_strength * (dither(FRAGCOORD.xy, brightness) - 0.5);
+		final_color *= (1.0 + dither_strength * (dither(FRAGCOORD.xy, brightness) - 0.5));
+	}
+	ALBEDO = final_color;
 }

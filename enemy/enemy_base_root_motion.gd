@@ -59,7 +59,7 @@ var panic = false
 func _enter_tree() -> void:
 	set_multiplayer_authority(1)
 
-@export var network_randi_seed = 1
+@export var network_randi_seed = 'cool_seed'.hash()
 
 func _ready():
 	seed(network_randi_seed)
@@ -180,7 +180,7 @@ func update_current_state(_new_state):
 # TODO: Tons of bugs in navigation
 # TODO: Painful to strip y index everywhere. The default target is always above or below the mesh	
 func navigation():
-	if target != null:
+	if target != null && target.global_position.distance_to(nav_agent_3d.target_position) > 2.0:
 		if panic:
 			nav_agent_3d.target_position = target.global_position * Vector3(1.0,0,1.0) * -1.0
 		elif is_patrolling && current_state == state.FREE: 

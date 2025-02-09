@@ -39,14 +39,17 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
+window/size/mode=4
 window/size/resizable=false
+window/size/always_on_top=true
 window/energy_saving/keep_screen_on=false
+window/stretch/mode="canvas_items"
 window/dpi/allow_hidpi=false
 window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [global_group]
 

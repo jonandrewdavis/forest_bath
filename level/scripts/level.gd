@@ -43,7 +43,6 @@ func _ready():
 	Hub.enemies_container = $EnemiesContainer
 	Hub.environment_container = $EnvironmentContainer
 	#Hub.world_environment = $Environment/WorldEnvironment
-	#Hub.forest_sun = $Environment/ForestSun
 	
 	Hub.connect("player_connected", Callable(self, "_on_player_connected"))
 	multiplayer.peer_disconnected.connect(_remove_player)
@@ -178,16 +177,20 @@ func sync_player_client_only_nodes(peer_id):
 # SINGLE PLAYER, 
 # NO CART.
 # NEW BLENDER TERRAIN
+var debug_arena = false
 var new_single_player_terrain = true
 
 func _add_single_player_only_nodes_and_finish_loading():
 	var player_node = Hub.get_player(1)
-	
-	if new_single_player_terrain: 
+	if debug_arena == true:
+		var prep_debug = environment_arena.instantiate()
+		$EnvironmentContainer.add_child(prep_debug)
+	elif new_single_player_terrain: 
 		var prepare_terrain_two = terrain_two.instantiate()
 		$EnvironmentContainer.add_child(prepare_terrain_two)
 		# Emits for grass tracking
 		prepare_terrain_two.environment_tracker_changed.emit(player_node)
+		Hub.forest_sun = $EnvironmentContainer.get_node("TerrainTwo").sun
 	else:
 		var prepare_environment = environment_instance_root_scene.instantiate()
 		$EnvironmentContainer.add_child(prepare_environment)
@@ -236,4 +239,4 @@ func _single_player_loading():
 	return OK
 
 func _on_single_player_start():
-	var nickname = "Player_1"
+	pass

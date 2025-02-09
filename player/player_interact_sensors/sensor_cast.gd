@@ -20,7 +20,7 @@ func _on_update_timer_timeout():
 		look_at(Vector3(player.interactable.global_position.x,global_position.y,player.interactable.global_position.z),Vector3.UP,true)
 	if self.is_colliding():
 		var body = get_collider(0)
-		if body.is_in_group("interactable"):
+		if body != null && body.is_in_group("interactable"):
 			player.interactable = body
 
 	else: # Clear interactable and reset to looking forward

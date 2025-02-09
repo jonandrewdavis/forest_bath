@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://t23hakykf4me"]
+
+[ext_resource type="ArrayMesh" uid="uid://b0p2bkdgn647f" path="res://assets/proton_scatters/p_bush1.tres" id="1_rug2p"]
+
+[node name="PBush1" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_rug2p")

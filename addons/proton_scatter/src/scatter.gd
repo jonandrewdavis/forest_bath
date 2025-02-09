@@ -6,7 +6,6 @@ signal shape_changed
 signal thread_completed
 signal build_completed
 
-
 # Includes
 const ProtonScatterDomain := preload("./common/domain.gd")
 const ProtonScatterItem := preload("./scatter_item.gd")

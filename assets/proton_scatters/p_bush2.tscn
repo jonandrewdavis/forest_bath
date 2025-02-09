@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://n4x2gs5qaf5g"]
+
+[ext_resource type="ArrayMesh" uid="uid://hflpn6vtp1o5" path="res://assets/proton_scatters/p_bush2.tres" id="1_vhebq"]
+
+[node name="PBush2" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-09, 0.1, 4.37114e-09, 0, -4.37114e-09, 0.1, 0.1, 4.37114e-09, 1.91069e-16, 2, 0, 2)
+mesh = ExtResource("1_vhebq")

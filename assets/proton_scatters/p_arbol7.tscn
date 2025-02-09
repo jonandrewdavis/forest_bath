@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ciy3r1p6exkbb"]
+
+[ext_resource type="ArrayMesh" uid="uid://c20hbmeihpede" path="res://assets/proton_scatters/p_arbol7.tres" id="1_ix5af"]
+
+[node name="PArbol7" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = ExtResource("1_ix5af")

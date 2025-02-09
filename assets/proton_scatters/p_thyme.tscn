@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnihpbyua5nx5"]
+
+[ext_resource type="ArrayMesh" uid="uid://be31c0mhtivn6" path="res://assets/proton_scatters/p_thyme.tres" id="1_d023h"]
+
+[node name="PThyme" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_d023h")

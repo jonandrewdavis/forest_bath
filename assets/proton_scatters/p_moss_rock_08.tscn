@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq13a7qr4pnuj"]
+
+[ext_resource type="ArrayMesh" uid="uid://bn0fe5pjlr5ri" path="res://assets/proton_scatters/p_moss_rock_08.tres" id="1_lgugk"]
+[ext_resource type="Shape3D" uid="uid://b4xwo0u1f1yrf" path="res://assets/environment_objects/rocks/moss_rock_08/moss_rock_08_col.tres" id="2_64kcr"]
+
+[node name="PMossRock08" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_lgugk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = ExtResource("2_64kcr")
