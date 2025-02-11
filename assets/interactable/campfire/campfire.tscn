@@ -182,8 +182,9 @@ shape = SubResource("BoxShape3D_3b87b")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13965, 0)
 light_color = Color(1, 0.858824, 0.294118, 1)
-light_energy = 14.2234
+light_energy = 12.9273
 light_indirect_energy = 16.0
+light_volumetric_fog_energy = 1.486
 omni_range = 16.4
 script = ExtResource("3_125mt")
 noise = SubResource("NoiseTexture3D_r7c4v")

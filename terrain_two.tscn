@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dfptfhliawf5j"]
+[gd_scene load_steps=51 format=3 uid="uid://dfptfhliawf5j"]
 
 [ext_resource type="Script" uid="uid://c8hhxsqvxgtlg" path="res://terrain_two.gd" id="1_rngtg"]
 [ext_resource type="PackedScene" uid="uid://c0y33rpanjd8e" path="res://assets/terrain_2_blender.blend" id="2_0hy3g"]
@@ -214,6 +214,11 @@ script = ExtResource("14_adxmt")
 size = Vector3(100, 1, 100)
 metadata/_custom_type_script = ExtResource("14_adxmt")
 
+[sub_resource type="Resource" id="Resource_na7qp"]
+script = ExtResource("11_q20qc")
+radius = 15.0
+metadata/_custom_type_script = ExtResource("11_q20qc")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_kn022"]
 size = Vector3(300, 1, 300)
 
@@ -380,12 +385,19 @@ metadata/_custom_type_script = ExtResource("5_adxmt")
 
 [node name="ScatterItem" type="Node3D" parent="ProtonScatter3"]
 script = ExtResource("12_kn022")
-path = "res://addons/proton_scatter/demos/assets/brick.tscn"
+path = "uid://bltmr2xgs8nq1"
 
 [node name="ScatterShape" type="Node3D" parent="ProtonScatter3"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 script = ExtResource("13_ggehe")
 shape = SubResource("Resource_pmvnw")
+
+[node name="ScatterShape2" type="Node3D" parent="ProtonScatter3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.7465, 0)
+script = ExtResource("13_ggehe")
+negative = true
+shape = SubResource("Resource_na7qp")
+metadata/_custom_type_script = ExtResource("13_ggehe")
 
 [node name="Reset" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -46.802, 0)
