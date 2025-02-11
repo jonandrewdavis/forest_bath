@@ -9,6 +9,7 @@ var fire_range = 2000
 var projectile_velocity = 65
 var Spray = Vector2.ZERO
 var damage = 1.0
+var player_source = false
 
 @onready var BULLET_SCENE = preload("res://player/equipment_system/equipment/bullet.tscn")
 
@@ -17,12 +18,13 @@ func _ready():
 		_Camera = $"../FollowCam".camera_3d
 		Player_Ray = $BulletRayCast
 		#_Viewport = get_viewport().get_size()
-		_Viewport = Vector2(2073.0, 1167.0)
+		_Viewport = Vector2(768.0, 432.0)
+		player_source = true
 # players only... since they ahve cameras.
 func shoot():	
-	var Ray_Origin = _Camera.project_ray_origin(_Viewport/2)
-	var Ray_End = (Ray_Origin + _Camera.project_ray_normal((_Viewport/2))* fire_range)
-	LaunchProjectile(Ray_End)
+	var Ray_Origin = _Camera.project_ray_origin(Vector2(768.0, 432.0)/2)
+	var Ray_End = (Ray_Origin + _Camera.project_ray_normal((Vector2(768.0, 432.0)/2)) * fire_range)
+	LaunchProjectile(Ray_End + Vector3.FORWARD + Vector3.FORWARD	)
 		#
 #var spread_min = 0.008
 #var spread = 0.07
@@ -40,6 +42,7 @@ func spawn_bullet(Direction, Damage, Position, RotationPoint):
 		Projectile.set_linear_velocity(Direction)
 		Projectile.Damage = Damage
 		Projectile.Source = multiplayer.get_remote_sender_id()
+		Projectile.is_player_source = player_source
 		# I learned the hard way only the server should add things the MultiplayerSpawner will handle the rest.
 		Hub.environment_container.add_child(Projectile, true)
 		Projectile.look_at(RotationPoint)

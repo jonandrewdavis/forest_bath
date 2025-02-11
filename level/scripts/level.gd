@@ -16,7 +16,8 @@ const environment_arena = preload("res://level/scenes/arena.tscn")
 const environment_instance_root_scene = preload("res://assets/environment_instances/environment_instance_root.tscn")
 const enemy_scene = preload('res://enemy/enemy_base_root_motion.tscn')
 const cart_scene = preload("res://assets/interactable/medieval_carriage/cart.tscn")
-const server_scenario_manager_scene = preload("res://level/scenes/server_scenario_manager.tscn")
+
+const wave_scenario = preload("res://level/scenes/wave_scenario.tscn")
 
 var volume_master_value
 
@@ -186,11 +187,7 @@ func _add_single_player_only_nodes_and_finish_loading():
 		var prep_debug = environment_arena.instantiate()
 		$EnvironmentContainer.add_child(prep_debug)
 	elif new_single_player_terrain: 
-		var prepare_terrain_two = terrain_two.instantiate()
-		$EnvironmentContainer.add_child(prepare_terrain_two)
-		# Emits for grass tracking
-		prepare_terrain_two.environment_tracker_changed.emit(player_node)
-		Hub.forest_sun = $EnvironmentContainer.get_node("TerrainTwo").sun
+		_new_game_mode()
 	else:
 		var prepare_environment = environment_instance_root_scene.instantiate()
 		$EnvironmentContainer.add_child(prepare_environment)
@@ -205,12 +202,24 @@ func _add_single_player_only_nodes_and_finish_loading():
 	await tween.finished
 	player_node.spawn()	
 
+
+func _new_game_mode():
+	var prepare_terrain_two = terrain_two.instantiate()
+	$EnvironmentContainer.add_child(prepare_terrain_two)
+	# Emits for grass tracking
+	#prepare_terrain_two.environment_tracker_changed.emit(player_node)
+	Hub.forest_sun = $EnvironmentContainer.get_node("TerrainTwo").sun
+	var cart = cart_scene.instantiate()
+	$EnvironmentContainer.add_child.call_deferred(cart, true)
+	
+	var wave_prep = wave_scenario.instantiate()
+	$EnvironmentContainer.add_child.call_deferred(wave_prep)
+
+
 func add_server_only_nodes():
 	var prepare_environment = environment_instance_root_scene.instantiate()
-	var server_scenario_manager = server_scenario_manager_scene.instantiate()
 	var cart = cart_scene.instantiate()
 
-	add_child(server_scenario_manager)
 	$EnvironmentContainer.add_child.call_deferred(prepare_environment)
 	$EnvironmentContainer.add_child.call_deferred(cart, true)
 
@@ -227,7 +236,6 @@ func _on_menu_master_slider_value_changed(value):
 
 func _on_quit_pressed():
 	get_tree().quit()
-
 
 func _single_player_loading():
 	menu.hide()

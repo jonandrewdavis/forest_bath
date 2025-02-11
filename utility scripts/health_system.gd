@@ -14,7 +14,6 @@ class_name HealthSystem
 @export var hit_reporting_node : Node
 @export var damage_signal :String = "damage_taken"
 
-
 # NOTE: I got a bug here because "health_received" was the default name, yet I used "heal_signal"
 # TODO: Rename "heal_signal" var to be "heal_signal signal". I called "heal_signal" on the parent. 
 # would be nice if we could choose it... but may be better to be slightly more programmatic ...
@@ -32,7 +31,7 @@ signal died
 
 func _ready():
 	# dont' show the health bar at our feet if it's ours... we just pass.
-	if is_multiplayer_authority():
+	if hit_reporting_node.is_in_group('players') && is_multiplayer_authority():
 		set_physics_process(false)
 		
 	if hit_reporting_node:
@@ -88,9 +87,10 @@ func _on_health_signal_sync(_power):
 func show_health():
 	var current_camera = get_viewport().get_camera_3d()
 	if current_camera && current_camera.global_position.distance_to(hit_reporting_node.global_position) < 30.0:
-		var screenspace = current_camera.unproject_position(hit_reporting_node.global_position)
-		health_bar_control.position = screenspace 
-		health_bar_control.show()
+		if current_camera.is_position_behind(hit_reporting_node.global_position) == false:
+			var screenspace = current_camera.unproject_position(hit_reporting_node.global_position)
+			health_bar_control.position = screenspace 
+			health_bar_control.show()
 		
 func _on_show_timer_timeout():
 	health_bar_control.hide()

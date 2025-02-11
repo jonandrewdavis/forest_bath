@@ -47,9 +47,6 @@ func _on_connected_ok():
 	players[peer_id] = player_info
 	Hub.player_connected.emit(peer_id, player_info)
 
-
-
-	
 func _on_player_connected(id):
 	#
 	#if !nickname:

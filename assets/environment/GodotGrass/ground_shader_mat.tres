@@ -5,6 +5,6 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_xrlmp")
-shader_parameter/base_color = Color(0.0770229, 0.130336, 0, 1)
+shader_parameter/base_color = Color(0.245043, 0.366205, 0, 1)
 shader_parameter/tip_color = Color(0.5, 0.5, 0.1, 1)
 shader_parameter/subsurface_scattering_color = Color(1, 0.75, 0.1, 1)

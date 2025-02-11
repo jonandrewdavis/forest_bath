@@ -78,20 +78,13 @@ func debug_spawn_new_enemy_sync():
 	if multiplayer.is_server():
 		debug_spawn_new_enemy.emit()
 
-@rpc('any_peer')
+@rpc('any_peer', 'call_local')
 func debug_kill_all_enemies_sync():
-	if multiplayer.is_server():
-		var count = 0
-		for enemy in enemies_container.get_children():
-			var min_dist = INF
-			for player in Hub.players_container.get_children():
-				min_dist = min(min_dist, player.global_position.distance_to(enemy.global_position))
+	var count = 0
+	for enemy in enemies_container.get_children():
+		enemy.queue_free()
 
-			if min_dist > 80.0:
-				enemy.queue_free()
-				count = count + 1
-
-		print('DEBUG: Removed out of bounds enemies: ', count)
+	print('DEBUG: Removed out of bounds enemies: ', count)
 
 func get_environment_root() -> Node3D:
 	return environment_container.get_node("EnvironmentInstanceRoot")
@@ -123,7 +116,6 @@ func spawn_enemy_at_location(_new_location: Vector3, _dist: = 40.0, _target_name
 func debug_spawn_new_brute(_location):
 	if multiplayer.is_server():
 		spawn_enemy_at_location.rpc(_location, 60.0, get_random_player().name, 10, true)
-
 
 @rpc("any_peer", 'call_local')
 func increase_enemy_health():

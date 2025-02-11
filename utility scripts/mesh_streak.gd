@@ -27,7 +27,6 @@ var lifetime = 0.15
 ## a helper counter to reduce how many edges are created.
 @onready var counter : int = 0
 
-
 ## Helper class to keep verteces in pairs of top and bottom pairs ot make quads.
 class edge:
 	var top_p : Vector3

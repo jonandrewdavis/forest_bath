@@ -1,7 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://blleyftowq1ut"]
-
-[ext_resource type="PackedScene" uid="uid://j6adkjx44d02" path="res://assets/environment_objects/buildings/tower/tower-with-material.tscn" id="1_2a3bw"]
-[ext_resource type="PackedScene" uid="uid://cftgi6m48mskx" path="res://assets/interactable/loot/loot.tscn" id="2_g1p3s"]
+[gd_scene load_steps=7 format=3 uid="uid://blleyftowq1ut"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_xl603"]
 vertices = PackedVector3Array(-99.5, 0.45, -99.5, -99.5, 0.45, 99.5, 99.5, 0.45, 99.5, 99.5, 0.45, -99.5)
@@ -42,9 +39,3 @@ shape = SubResource("BoxShape3D_133hy")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SunkenFloor/StaticBody3D"]
 mesh = SubResource("BoxMesh_oy0wf")
 surface_material_override/0 = SubResource("StandardMaterial3D_7jy6x")
-
-[node name="tower" parent="." instance=ExtResource("1_2a3bw")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 9.20812, -1.53314, 0)
-
-[node name="Loot" parent="." instance=ExtResource("2_g1p3s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6248, 0.634705, 0)

@@ -1,11 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ch6528py03hat"]
+[gd_scene load_steps=21 format=3 uid="uid://ch6528py03hat"]
 
 [ext_resource type="PackedScene" uid="uid://b13e1f13iy5t7" path="res://assets/interactable/campfire/campfire_asset.gltf" id="1_s7apb"]
 [ext_resource type="Shader" uid="uid://c6ju8gvyjnksu" path="res://utility scripts/FireFromGameIdeaOrg.gdshader" id="2_eo14m"]
-[ext_resource type="Texture2D" uid="uid://b82ottty1epfo" path="res://assets/environment_objects/buildings/tower/textures/Dirty_Stone_01_UV_H_CM_1.jpg" id="4_x7sgt"]
+[ext_resource type="Script" uid="uid://ddtxalej3gbbu" path="res://assets/interactable/campfire/omni_light_3d.gd" id="3_125mt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_47hct"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("2_eo14m")
 shader_parameter/detail_strength = 3.0
 shader_parameter/scroll_speed = 1.2
@@ -27,7 +27,7 @@ size = Vector2(2, 2)
 orientation = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qyru4"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("2_eo14m")
 shader_parameter/detail_strength = 3.0
 shader_parameter/scroll_speed = 1.0
@@ -72,6 +72,7 @@ size = Vector2(2, 2)
 orientation = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_36eyg"]
+render_priority = 1
 albedo_color = Color(0.066297, 0.0175102, 0, 1)
 emission_energy_multiplier = 6.2
 backlight_enabled = true
@@ -85,7 +86,6 @@ height = 0.1
 resource_name = "Material.002"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.82098, 0.82098, 0.82098, 1)
-albedo_texture = ExtResource("4_x7sgt")
 emission = Color(0.906332, 0.906332, 0.906332, 1)
 emission_energy_multiplier = 0.1717
 uv1_scale = Vector3(0.4, 0.4, 0.4)
@@ -99,6 +99,13 @@ size = Vector3(2, 1, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3b87b"]
 size = Vector3(2, 1, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nm23h"]
+noise_type = 0
+frequency = 0.2112
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_r7c4v"]
+noise = SubResource("FastNoiseLite_nm23h")
 
 [node name="Campfire" type="Node3D"]
 
@@ -153,7 +160,6 @@ mesh = SubResource("QuadMesh_g12r4")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="CamfireContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114788, 0, 0)
-visible = false
 mesh = SubResource("CylinderMesh_o5icv")
 skeleton = NodePath("../..")
 
@@ -172,3 +178,12 @@ shape = SubResource("CapsuleShape3D_fpwmx")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CamfireContainer/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.500184, 0)
 shape = SubResource("BoxShape3D_3b87b")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13965, 0)
+light_color = Color(1, 0.858824, 0.294118, 1)
+light_energy = 14.2234
+light_indirect_energy = 16.0
+omni_range = 16.4
+script = ExtResource("3_125mt")
+noise = SubResource("NoiseTexture3D_r7c4v")

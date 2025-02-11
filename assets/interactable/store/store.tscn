@@ -1,11 +1,11 @@
 [gd_scene load_steps=21 format=3 uid="uid://boeiwt2araai2"]
 
-[ext_resource type="Script" path="res://utility scripts/store.gd" id="1_wkhmm"]
+[ext_resource type="Script" uid="uid://dfjalfo8r1ruc" path="res://utility scripts/store.gd" id="1_wkhmm"]
 [ext_resource type="PackedScene" uid="uid://c3yajhej5laa7" path="res://interactable objects/chest/chest.tscn" id="2_74so3"]
 [ext_resource type="ArrayMesh" uid="uid://cgx7ymldfthdy" path="res://player/equipment_system/equipment/shield_mesh.tres" id="2_bwoih"]
 [ext_resource type="Texture2D" uid="uid://8gsghealxlf4" path="res://assets/interactable/medieval_carriage/textures/aiStandardSurface1_baseColor.png" id="3_2vi02"]
 [ext_resource type="ArrayMesh" uid="uid://dydsmubmlna12" path="res://assets/weapons/WoodenBow/wooden_bow_mesh.tres" id="3_nockq"]
-[ext_resource type="Script" path="res://assets/interactable/store/items.gd" id="3_rt61q"]
+[ext_resource type="Script" uid="uid://yw1b07jaoc1t" path="res://assets/interactable/store/items.gd" id="3_rt61q"]
 [ext_resource type="Texture2D" uid="uid://hg6hunkvy65f" path="res://assets/interactable/medieval_carriage/textures/aiStandardSurface1_metallicRoughness.png" id="4_twsdp"]
 [ext_resource type="Texture2D" uid="uid://dngyp1baqmyl2" path="res://assets/interactable/medieval_carriage/textures/aiStandardSurface1_normal.png" id="5_kjfvy"]
 [ext_resource type="ArrayMesh" uid="uid://creq3ae8cfngv" path="res://assets/interactable/store/axe_mesh.tres" id="7_s8p3j"]

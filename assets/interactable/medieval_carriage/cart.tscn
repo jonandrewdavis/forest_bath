@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=4 uid="uid://brcob4a2vngyt"]
+[gd_scene load_steps=24 format=4 uid="uid://brcob4a2vngyt"]
 
 [ext_resource type="PackedScene" uid="uid://bdiwt6qndl0qy" path="res://assets/interactable/medieval_carriage/carriage.gltf" id="1_0i6nf"]
 [ext_resource type="Script" uid="uid://by5cniojs8frk" path="res://assets/interactable/medieval_carriage/cart.gd" id="1_kp5fv"]
 [ext_resource type="Material" uid="uid://crd45hh5sn81h" path="res://assets/interactable/store/wooden_chest_back_side.tres" id="3_ram5r"]
 [ext_resource type="Script" uid="uid://dnet5otpbdim" path="res://utility scripts/health_system.gd" id="4_rewff"]
-[ext_resource type="Script" uid="uid://bvy3udumry5bx" path="res://utility scripts/rope.gd" id="4_rllv7"]
 [ext_resource type="Script" uid="uid://csd2s3aftm5yk" path="res://ui/health_bar.gd" id="5_6yc8k"]
 [ext_resource type="Script" uid="uid://5iexe3na5pl5" path="res://audio/SoundFXSystem.gd" id="6_2eeam"]
 [ext_resource type="AudioStream" uid="uid://twq1ywacwc88" path="res://audio/SoundFX/hit/hit_blunt_04.wav" id="6_o72a1"]
@@ -59,41 +58,6 @@ size = Vector3(2, 3, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d5f6c"]
 size = Vector3(2, 0.5, 1.8)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ey22n"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_8wmav"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_8sndc"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7alqc"]
-properties/0/path = NodePath(".:replicated_position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:replicated_rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:replicated_linear_velocity")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:replicated_angular_velocity")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:is_dead")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("Rope:visible")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath("Rope2:visible")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath("Rope/End:position")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath(".:visible")
-properties/8/spawn = true
-properties/8/replication_mode = 2
-
 [sub_resource type="Gradient" id="Gradient_8nrik"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(0.258824, 0.254902, 0.262745, 1)
@@ -112,12 +76,20 @@ gradient = SubResource("Gradient_447ee")
 width = 256
 height = 28
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0yjxg"]
+noise_type = 2
+frequency = 0.0336
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k1q6b"]
+height = 30
+noise = SubResource("FastNoiseLite_0yjxg")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdgc3"]
 albedo_color = Color(0, 0, 0, 1)
 metallic = 0.2
 emission_enabled = true
 emission = Color(0.359502, 0.234722, 9.62615e-08, 1)
-emission_energy_multiplier = 1.85
+emission_energy_multiplier = 1.8
 grow = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_bwglm"]
@@ -179,56 +151,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00210643, 1.11572, 3.66055)
 wait_time = 2.0
 autostart = true
 
-[node name="Rope" type="Node3D" parent="." node_paths=PackedStringArray("start_point", "end_point")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8669, 0, 0)
-script = ExtResource("4_rllv7")
-start_point = NodePath("Start")
-end_point = NodePath("End")
-end_is_rigidbody = false
-number_of_segments = 8
-cable_gravity_amp = 1.0
-cable_thickness = 0.05
-cable_springiness = 60.0
-
-[node name="End" type="StaticBody3D" parent="Rope"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0860462, 1.1202, 4.3633)
-top_level = true
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Rope/End"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.369185, 0, 0)
-shape = SubResource("SphereShape3D_ey22n")
-
-[node name="Start" type="StaticBody3D" parent="Rope"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71331, 1.31113, 3.06122)
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Rope/Start"]
-shape = SubResource("SphereShape3D_8wmav")
-
-[node name="StartSecondRope" type="StaticBody3D" parent="Rope"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01904, 1.29597, 3.0491)
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Rope/StartSecondRope"]
-shape = SubResource("SphereShape3D_8sndc")
-
-[node name="Rope2" type="Node3D" parent="." node_paths=PackedStringArray("start_point", "end_point")]
-script = ExtResource("4_rllv7")
-start_point = NodePath("../Rope/StartSecondRope")
-end_point = NodePath("../Rope/End")
-end_is_rigidbody = false
-number_of_segments = 8
-cable_gravity_amp = 1.0
-cable_thickness = 0.05
-cable_springiness = 60.0
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_7alqc")
-
 [node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("hit_reporting_node", "heal_reporting_node", "health_bar_control")]
 script = ExtResource("4_rewff")
 total_health = 250
@@ -258,12 +180,23 @@ texture_progress = SubResource("GradientTexture2D_qasmq")
 script = ExtResource("5_6yc8k")
 health_system = NodePath("../..")
 
+[node name="TextureRect" type="TextureRect" parent="HealthSystem/Control/HealthBar"]
+self_modulate = Color(1, 1, 1, 0.141176)
+custom_minimum_size = Vector2(96, 8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_k1q6b")
+expand_mode = 2
+
 [node name="ShowTimer" type="Timer" parent="HealthSystem"]
 
-[node name="SoundFXTrigger" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("triggering_node")]
+[node name="SoundFXTrigger" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_o72a1")
 script = ExtResource("6_2eeam")
-triggering_node = NodePath("..")
 sound_trigger_signal = "hurt_started"
 
 [node name="Store" parent="." instance=ExtResource("8_x3bt8")]
@@ -271,17 +204,15 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.002
 
 [node name="SecretMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84887, 0.271989)
-visible = false
 mesh = SubResource("BoxMesh_bwglm")
 
-[node name="SoundFXTrigger2" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("triggering_node")]
+[node name="SoundFXTrigger2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_o72a1")
 volume_db = 37.416
 pitch_scale = 0.68
 panning_strength = 0.0
 bus = &"Echo"
 script = ExtResource("6_2eeam")
-triggering_node = NodePath("..")
 sound_trigger_signal = "death_signal"
 play_delay = 1.0
 

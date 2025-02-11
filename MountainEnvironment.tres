@@ -2,19 +2,29 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_412sv"]
 sky_top_color = Color(0.477, 0.8154, 0.9, 1)
+sky_energy_multiplier = 0.5
+use_debanding = false
 
 [sub_resource type="Sky" id="Sky_ltvkl"]
 sky_material = SubResource("ProceduralSkyMaterial_412sv")
 
 [resource]
 background_mode = 2
+background_energy_multiplier = 3.0
 sky = SubResource("Sky_ltvkl")
-ambient_light_color = Color(0.587078, 0.587078, 0.587078, 1)
-reflected_light_source = 2
+ambient_light_color = Color(0.487662, 0.487662, 0.487662, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.4
 tonemap_mode = 2
 tonemap_exposure = 1.2
-tonemap_white = 6.0
+tonemap_white = 4.0
+ssr_enabled = true
 glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.0
+glow_blend_mode = 0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.03
-volumetric_fog_albedo = Color(0.478431, 0.815686, 0.901961, 1)
+volumetric_fog_density = 0.055
+volumetric_fog_albedo = Color(0.523738, 0.718482, 0.998583, 1)
+volumetric_fog_emission = Color(0.327749, 0.655612, 0.948935, 1)
+volumetric_fog_anisotropy = 0.1

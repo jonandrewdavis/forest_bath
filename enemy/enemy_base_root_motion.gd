@@ -117,12 +117,6 @@ func _ready():
 		
 		$AttackAreaSensor.body_entered.connect(_on_target_entered)
 		$AttackAreaSensor.body_exited.connect(_on_target_exited)
-	else:
-		# NOTE: HUUUUUUUUUUGE frame rate and processing savings if we disable Collision shapes on the client side. 24 -> 60 fps
-		# NOTE: TODO: make sure all collisions still happen for the most part! 
-		set_process(false)
-		set_physics_process(false)
-		$AttackAreaSensor/AttackAreaCollisionShape.disabled = true
 
 
 func _remove_player_change_target(id):
@@ -131,7 +125,7 @@ func _remove_player_change_target(id):
 		default_target = Hub.get_cart()
 
 func _on_target_entered(_body):
-	if _body == target:
+	if _body == target or _body.name == "Cart":
 		colliding_with_target = true
 		
 func _on_target_exited(_body):
@@ -180,16 +174,16 @@ func update_current_state(_new_state):
 # TODO: Tons of bugs in navigation
 # TODO: Painful to strip y index everywhere. The default target is always above or below the mesh	
 func navigation():
-	if target != null && target.global_position.distance_to(nav_agent_3d.target_position) > 2.0:
-		if panic:
-			nav_agent_3d.target_position = target.global_position * Vector3(1.0,0,1.0) * -1.0
-		elif is_patrolling && current_state == state.FREE: 
-			nav_agent_3d.target_position = target.global_position + Vector3(patrol_dir.x, 0.0, patrol_dir.y) 
-		else:
-			nav_agent_3d.target_position = target.global_position
-		var new_dir = (nav_agent_3d.get_next_path_position() - global_position).normalized()
-		new_dir *= Vector3(1,0,1) # strip the y value so enemy stays at current level
-		direction = new_dir
+	#if target != null && target.global_position.distance_to(nav_agent_3d.target_position) > 2.0:
+	if panic:
+		nav_agent_3d.target_position = target.global_position * Vector3(1.0,0,1.0) * -1.0
+	elif is_patrolling && current_state == state.FREE: 
+		nav_agent_3d.target_position = target.global_position + Vector3(patrol_dir.x, 0.0, patrol_dir.y) 
+	else:
+		nav_agent_3d.target_position = target.global_position
+	var new_dir = (nav_agent_3d.get_next_path_position() - global_position).normalized()
+	new_dir *= Vector3(1,0,1) # strip the y value so enemy stays at current level
+	direction = new_dir
 
 func rotate_character():
 	if animation_tree.get("parameters/attack/active") == true && brute == true:

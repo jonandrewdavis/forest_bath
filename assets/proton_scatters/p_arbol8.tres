@@ -23,9 +23,9 @@ uv1_offset = Vector3(0, -1, 0)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sgyts"]
 render_priority = 0
 shader = ExtResource("5_4m56e")
-shader_parameter/albedo = null
+shader_parameter/albedo = Color(0.452412, 0.535331, 0.230754, 1)
 shader_parameter/texture_albedo = ExtResource("4_m2qkl")
-shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/alpha_scissor_threshold = 0.3
 shader_parameter/point_size = null
 shader_parameter/roughness = null
 shader_parameter/metallic_texture_channel = null
@@ -42,8 +42,8 @@ shader_parameter/sway_phase_len = 7.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpgd1"]
 resource_name = "Rama.002"
 next_pass = SubResource("ShaderMaterial_sgyts")
-transparency = 3
-alpha_hash_scale = 1.0
+transparency = 2
+alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_color = Color(1, 1, 1, 0)

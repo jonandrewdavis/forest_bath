@@ -11,12 +11,5 @@ environment = ExtResource("1_rxvpo")
 transform = Transform3D(1, 0, 0, 0, 0.973551, 0.22847, 0, -0.22847, 0.973551, 0, 0, 0)
 light_energy = 3.0
 light_bake_mode = 1
-shadow_enabled = true
-directional_shadow_mode = 0
-directional_shadow_max_distance = 50.0
-
-[node name="ForestSun2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.997078, 0.0763883, 0, -0.0763883, -0.997078, 0, 0, 0)
-light_bake_mode = 1
 directional_shadow_mode = 0
 directional_shadow_max_distance = 50.0

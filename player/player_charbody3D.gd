@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export_range(1,50,1) var mouse_sensitivity = 15.0
+@export_range(1,50,1) var mouse_sensitivity = 10.0
 @export_range(1,50,1) var joystick_sensitivity = 15.0
 
 # MULTIPLAYER TEMPLATE VARS
@@ -552,10 +552,9 @@ func fall_check():
 			busy = false
 			
 
-
 func sprint():
 	if sprint_timer.is_stopped():
-		sprint_timer.start(.3)
+		sprint_timer.start(.1)
 		await sprint_timer.timeout
 		if !dodging && input_dir:
 			sprinting = true
@@ -1076,7 +1075,7 @@ func spawn():
 	#animation_tree.request_oneshot("Spawn")
 	
 func add_new_potion(_cost):
-	if coins >= _cost:
+	if coins >= _cost && $InventorySystem.starter_item.count < 3:
 		$InventorySystem.add_potion()
 		coins = coins - _cost
 		store_success.emit()

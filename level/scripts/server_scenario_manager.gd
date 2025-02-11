@@ -44,11 +44,6 @@ func _ready():
 		Hub.debug_spawn_new_enemy.connect(_on_debug_spawn_new_enemy)
 
 func _on_begin_encounters():
-	if single_player: 
-		# TODO: Spawn waves.
-		prepare_starting_area()
-		return
-	
 	# Start up our timers, as we now have a monitorable subject
 	encounter_timer.timeout.connect(check_for_encounter)
 	encounter_direction_timer.timeout.connect(_record_recent_dir)

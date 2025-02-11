@@ -23,10 +23,13 @@ func host(single_player: bool):
 
 	# Start host
 	print("Starting host on port %s" % port)
-	
-	var peer = ENetMultiplayerPeer.new()
-	if peer.create_server(port) != OK:
-		print("Failed to listen on port %s" % port)
+	var peer
+	if single_player:
+		peer = OfflineMultiplayerPeer.new()
+	else:
+		peer = ENetMultiplayerPeer.new()
+		if peer.create_server(port) != OK:
+			print("Failed to listen on port %s" % port)
 
 	get_tree().get_multiplayer().multiplayer_peer = peer
 	print("Listening on port %s" % port)

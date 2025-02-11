@@ -371,7 +371,7 @@ text = "Quit
 [node name="MarginContainer" type="MarginContainer" parent="Menu/MainContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 80
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
@@ -446,7 +446,7 @@ _spawnable_scenes = PackedStringArray("uid://cq2lr6sclvutj")
 spawn_path = NodePath("../EnemiesContainer")
 
 [node name="SpawnerEnvironment" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://brcob4a2vngyt", "uid://b58rh24bdj4p0", "uid://c4oockhjnrg6", "uid://dxlkgbr1p580", "uid://o0lqdvwkq6n4", "uid://donc6jtlr06dp", "uid://ds7vr6al5jaed")
+_spawnable_scenes = PackedStringArray("uid://dxlkgbr1p580")
 spawn_path = NodePath("../EnvironmentContainer")
 
 [node name="FirstIgnore" type="MeshInstance3D" parent="."]
@@ -456,4 +456,5 @@ mesh = SubResource("CylinderMesh_aj1qi")
 [connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Buttons/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option5/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Menu/MainContainer/Option4/Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="Menu/MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/MenuMasterSlider" to="." method="_on_menu_master_slider_value_changed"]

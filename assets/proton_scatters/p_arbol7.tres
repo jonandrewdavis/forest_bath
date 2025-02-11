@@ -20,9 +20,9 @@ normal_texture = ExtResource("3_6mj4n")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y56ak"]
 render_priority = 0
 shader = ExtResource("5_v4txu")
-shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo = Color(0.451766, 0.798748, 0.433758, 1)
 shader_parameter/texture_albedo = ExtResource("4_wsp3x")
-shader_parameter/alpha_scissor_threshold = 0.1
+shader_parameter/alpha_scissor_threshold = 0.4
 shader_parameter/point_size = null
 shader_parameter/roughness = null
 shader_parameter/metallic_texture_channel = null
@@ -39,8 +39,8 @@ shader_parameter/sway_phase_len = 15.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snilh"]
 resource_name = "Rama.001"
 next_pass = SubResource("ShaderMaterial_y56ak")
-transparency = 3
-alpha_hash_scale = 1.0
+transparency = 2
+alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_color = Color(1, 1, 1, 0)

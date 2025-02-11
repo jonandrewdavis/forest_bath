@@ -39,13 +39,13 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/mode=4
+window/size/viewport_width=922
+window/size/viewport_height=518
+window/size/mode=2
 window/size/resizable=false
-window/size/always_on_top=true
 window/energy_saving/keep_screen_on=false
-window/stretch/mode="canvas_items"
-window/dpi/allow_hidpi=false
-window/vsync/vsync_mode=0
+window/stretch/mode="viewport"
+window/vsync/vsync_mode=2
 
 [editor_plugins]
 

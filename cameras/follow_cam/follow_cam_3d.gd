@@ -86,7 +86,7 @@ func _physics_process(_delta):
 	_follow_target(follow_target)
 	_lookat_target()
 	_detect_camera_change()
-	
+
 ## Normal free camera control
 func mouse_control(_event):
 	if is_menu_open: 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://8njjisb8vun0"]
+[gd_scene load_steps=21 format=3 uid="uid://8njjisb8vun0"]
 
 [ext_resource type="Script" uid="uid://dkdbd0sh84rud" path="res://utility scripts/environment_instance_root.gd" id="1_fepr5"]
 [ext_resource type="Texture2D" uid="uid://ckp2tungibla7" path="res://assets/environment/heightmap_grass_main.tres" id="2_3f4kl"]
 [ext_resource type="Script" uid="uid://df5y4qctkqo3l" path="res://utility scripts/instancer_custom.gd" id="2_o747f"]
+[ext_resource type="PackedScene" uid="uid://ddao80fiyrwn0" path="res://EnvironmentSunOLD.tscn" id="3_407cs"]
 [ext_resource type="ArrayMesh" uid="uid://bn0fe5pjlr5ri" path="res://assets/proton_scatters/p_moss_rock_08.tres" id="4_gf3y6"]
 [ext_resource type="Shape3D" uid="uid://b4xwo0u1f1yrf" path="res://assets/environment_objects/rocks/moss_rock_08/moss_rock_08_col.tres" id="5_rev6c"]
 [ext_resource type="ArrayMesh" uid="uid://bodieb0yclbu1" path="res://assets/proton_scatters/p_moss_rock14.tres" id="6_gf3y6"]
@@ -192,3 +193,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15204, 0, -1.23027)
 
 [node name="GrassMain" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_in6vh")]
 player = NodePath("../Marker3D")
+
+[node name="Environment" parent="." instance=ExtResource("3_407cs")]

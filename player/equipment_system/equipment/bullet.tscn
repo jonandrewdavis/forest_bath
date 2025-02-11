@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://dxlkgbr1p580"]
 
-[ext_resource type="Script" path="res://player/equipment_system/equipment/bullet.gd" id="1_egd1t"]
+[ext_resource type="Script" uid="uid://eed8dw1luume" path="res://player/equipment_system/equipment/bullet.gd" id="1_egd1t"]
 [ext_resource type="Material" uid="uid://33vcyke3sbod" path="res://assets/weapons/WoodenBow/bullet_glow.tres" id="2_6nk63"]
 [ext_resource type="PackedScene" uid="uid://b0qxv7j702t27" path="res://assets/weapons/WoodenBow/Arrow.glb" id="2_ftew4"]
 
@@ -185,6 +185,9 @@ replication_config = SubResource("SceneReplicationConfig_vk52k")
 
 [node name="Root Scene" parent="." instance=ExtResource("2_ftew4")]
 transform = Transform3D(0.9, 0, 0, 0, -3.93403e-08, 0.9, 0, -0.9, -3.93403e-08, 0, 0, 0)
+
+[node name="RootNode" parent="Root Scene" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.293325, -1.28217e-08)
 
 [node name="Arrow" parent="Root Scene/RootNode" index="0"]
 mesh = SubResource("ArrayMesh_17ltn")
