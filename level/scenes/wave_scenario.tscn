@@ -1,15 +1,67 @@
-[gd_scene load_steps=2 format=3 uid="uid://clisb6q5qqwol"]
+[gd_scene load_steps=5 format=3 uid="uid://clisb6q5qqwol"]
 
 [ext_resource type="Script" uid="uid://biaw04lyv0uh3" path="res://level/scenes/wave_scenario.gd" id="1_a2wo5"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="2_4m0f5"]
+[ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://assets/themes/MinimalUI4/Strait-Regular.ttf" id="2_pbv2t"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pbv2t"]
+properties/0/path = NodePath(".:current_wave")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:multi")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="WaveScenario" type="Node3D"]
 script = ExtResource("1_a2wo5")
 
-[node name="BreakTimer" type="Timer" parent="."]
+[node name="Start" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="BreakTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [node name="CheckTimer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HereTheyCome" type="Label" parent="Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 347.0
+offset_top = 61.0
+offset_right = 679.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("2_4m0f5")
+theme_override_font_sizes/font_size = 30
+text = "Here they come"
+
+[node name="Start" type="Label" parent="Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 196.0
+offset_right = 239.0
+offset_bottom = 367.0
+theme_override_fonts/font = ExtResource("2_pbv2t")
+theme_override_font_sizes/font_size = 17
+text = "Defend the Cart
+
+- [WASD] Move
+- [Click]: Attack
+- [E]: Interact
+- [Tab]: Settings (Full Controls)
+"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pbv2t")

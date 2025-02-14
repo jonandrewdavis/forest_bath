@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bc6ti63pjww27"]
+
+[ext_resource type="Shader" uid="uid://c5g1speywq6cn" path="res://assets/environment/GodotGrass/shaders/spatial/ground.gdshader" id="2_eeepe"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("2_eeepe")
+shader_parameter/base_color = Color(0.245043, 0.366205, 0, 1)
+shader_parameter/tip_color = Color(0.5, 0.5, 0.1, 1)
+shader_parameter/subsurface_scattering_color = Color(1, 0.75, 0.1, 1)

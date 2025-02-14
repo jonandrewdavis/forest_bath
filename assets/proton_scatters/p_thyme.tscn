@@ -5,4 +5,5 @@
 [node name="PThyme" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
 mesh = ExtResource("1_d023h")

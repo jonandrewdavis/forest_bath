@@ -14,7 +14,7 @@ func host_only():
 		#brawler_spawner.spawn_host_avatar = false
 	host(false)
 
-func host(single_player: bool):
+func host(_single_player: bool = false):
 	var _host = _parse_input()
 	if _host.size() == 0:
 		return ERR_CANT_RESOLVE
@@ -24,7 +24,7 @@ func host(single_player: bool):
 	# Start host
 	print("Starting host on port %s" % port)
 	var peer
-	if single_player:
+	if _single_player:
 		peer = OfflineMultiplayerPeer.new()
 	else:
 		peer = ENetMultiplayerPeer.new()
@@ -50,7 +50,7 @@ func host(single_player: bool):
 	connect_ui.hide()
 	
 	# NOTE: ADDED!
-	if single_player: 
+	if _single_player: 
 		level_root._on_host_pressed(true)
 	else:
 		level_root._on_host_pressed(false)

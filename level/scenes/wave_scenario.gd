@@ -2,7 +2,7 @@ extends Node3D
 
 const basic_enemy = preload('res://enemy/enemy_base_root_motion.tscn')
 
-var current_wave = 0
+@export var current_wave = 0
 
 # Sword, Archer, Brute
 var wave_list = [
@@ -16,44 +16,70 @@ var wave_list = [
 	[2, 2, 4]
 ]
 
-var multi = 1
+@export var multi = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Start.timeout.connect(_on_start)
 	$CheckTimer.timeout.connect(_on_check)
 	$BreakTimer.timeout.connect(_on_break_end)
-	print(wave_list[0][0])
+	var enemy_preload = basic_enemy.instantiate()
+	enemy_preload.queue_free()
 
+func _on_start():
+	var tween1 = create_tween()
+	tween1.tween_property($Control/Start,"self_modulate:a", 255, 2)
+	await tween1.finished
+	await get_tree().create_timer(5).timeout
+	var tween = create_tween()
+	tween.tween_property($Control/Start,"self_modulate:a", 0, 2)
+	await tween.finished
+	await get_tree().create_timer(5).timeout
+	_on_break_end()
+	await get_tree().create_timer(1).timeout
+	$CheckTimer.start()
+	
 # Every 5 seconds, check if you win
 func _on_check():
 	if Hub.enemies_container.get_children().size() == 0 && $BreakTimer.is_stopped():
-		current_wave = current_wave + 1
 		$BreakTimer.start()
+		if multiplayer.is_server():
+			current_wave = current_wave + 1
 
 func _on_break_end():
 	if Hub.enemies_container.get_children().size() == 0:
-		_start_next_round()
+		_start_next_round.rpc()
+		var tween_show = create_tween()
+		tween_show.tween_property($Control/HereTheyCome,"self_modulate:a", 255, 2)
+		await tween_show.finished
+		
+		await get_tree().create_timer(1).timeout
+		var tween_hide = create_tween()
+		tween_hide.tween_property($Control/HereTheyCome,"self_modulate:a", 0, 2)
+		await tween_hide.finished
 
+@rpc('any_peer', 'call_local')
 func _start_next_round():
+	if multiplayer.is_server():
+		if current_wave <= wave_list.size() - 1:
+			var soilders = wave_list[current_wave][0] * multi
+			var archers = wave_list[current_wave][1] * multi
+			var brutes = wave_list[current_wave][2] * multi
+			for i in soilders:
+				randomize()
+				spawn_for_wave.rpc(randf() * 2)
+			for a in archers:
+				randomize()
+				spawn_for_wave.rpc(randf() * 2, true)
+			for b in brutes:
+				randomize()		
+				spawn_for_wave.rpc(randf() * 2, false, true)
+		else: 
+			current_wave = 0
+			multi = multi + 1
+			_start_next_round()
 
-	if current_wave <= wave_list.size() - 1:
-		var soilders = wave_list[current_wave][0] * multi
-		var archers = wave_list[current_wave][1] * multi
-		var brutes = wave_list[current_wave][2] * multi
-		for i in soilders:
-			randomize()
-			spawn_for_wave(randf() * 2)
-		for a in archers:
-			randomize()
-			spawn_for_wave(randf() * 2, true)
-		for b in brutes:
-			randomize()		
-			spawn_for_wave(randf() * 2, false, true)
-	else: 
-		current_wave = 0
-		multi = multi + 1
-		_start_next_round()
-
+@rpc('any_peer', 'call_local')
 func spawn_for_wave(_rand, _archer = false, _brute = false):
 	if multiplayer.is_server():
 		var _dist: = 20.0

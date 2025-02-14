@@ -9,7 +9,6 @@ extends Control
 @onready var master_slider: HSlider =$MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Master
 @onready var sfx_slider: HSlider = $MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/SFX
 @onready var background_slider: HSlider = $MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/BackgroundSlider
-@onready var scoreboard = $MarginContainer2/Panel/MarginContainer/Scoreboard
 
 var bus_master = AudioServer.get_bus_index("Master")
 var bus_sfx = AudioServer.get_bus_index("SFX")
@@ -50,6 +49,10 @@ func _ready():
 		sensitivity_slider.max_value = player.mouse_sensitivity * 2
 		sensitivity_slider.value = player.mouse_sensitivity
 
+#func _process(_delta: float) -> void:
+	#if (Input.get_mouse_mode() != 2):
+		#self.visible = true
+
 # TODO: refactor & use the emit on the signal exclusively. 
 func toggleMenu():
 	if self.visible == false:
@@ -58,15 +61,15 @@ func toggleMenu():
 		player.current_state = player.state.STATIC
 		player.menu_open.emit(true)
 		
-		var text_with_p = []
-		text_with_p.append("[p]" + "Cart Distance Travelled: " + str(Hub.distance_travelled) + "m. [p]")
-		text_with_p.append("[p]" + " " +"[p]")
-		text_with_p.append("[p]" + "-------- " + "Players" +  " --------" +"[p]")
-		text_with_p.append("[p]" + " " +"[p]")
-		for item in Hub.players_container.get_children():
-			text_with_p.append("[p]" + item.nickname.text +  ' --- K: ' + str(item.kills) + ' D: ' + str(item.deaths) + "[p]")
-		
-		scoreboard.text =  "".join(text_with_p)
+		#var text_with_p = []
+		#text_with_p.append("[p]" + "Cart Distance Travelled: " + str(Hub.distance_travelled) + "m. [p]")
+		#text_with_p.append("[p]" + " " +"[p]")
+		#text_with_p.append("[p]" + "-------- " + "Players" +  " --------" +"[p]")
+		#text_with_p.append("[p]" + " " +"[p]")
+		#for item in Hub.players_container.get_children():
+			#text_with_p.append("[p]" + item.nickname.text +  ' --- K: ' + str(item.kills) + ' D: ' + str(item.deaths) + "[p]")
+		#
+		#scoreboard.text =  "".join(text_with_p)
 
 	else:
 		self.visible = false

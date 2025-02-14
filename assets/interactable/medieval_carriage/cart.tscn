@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://brcob4a2vngyt"]
+[gd_scene load_steps=26 format=4 uid="uid://brcob4a2vngyt"]
 
 [ext_resource type="PackedScene" uid="uid://bdiwt6qndl0qy" path="res://assets/interactable/medieval_carriage/carriage.gltf" id="1_0i6nf"]
 [ext_resource type="Script" uid="uid://by5cniojs8frk" path="res://assets/interactable/medieval_carriage/cart.gd" id="1_kp5fv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://5iexe3na5pl5" path="res://audio/SoundFXSystem.gd" id="6_2eeam"]
 [ext_resource type="AudioStream" uid="uid://twq1ywacwc88" path="res://audio/SoundFX/hit/hit_blunt_04.wav" id="6_o72a1"]
 [ext_resource type="PackedScene" uid="uid://boeiwt2araai2" path="res://assets/interactable/store/store.tscn" id="8_x3bt8"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="9_yy34t"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wpiq2"]
 _surfaces = [{
@@ -95,6 +96,14 @@ grow = true
 [sub_resource type="BoxMesh" id="BoxMesh_bwglm"]
 material = SubResource("StandardMaterial3D_qdgc3")
 size = Vector3(1.4, 1.8, 2.3)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yy34t"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="Cart" type="RigidBody3D" groups=["cart"]]
 collision_layer = 3
@@ -215,5 +224,28 @@ bus = &"Echo"
 script = ExtResource("6_2eeam")
 sound_trigger_signal = "death_signal"
 play_delay = 1.0
+
+[node name="Death" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Death"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 8.0
+offset_right = 557.0
+offset_bottom = 121.0
+theme_override_fonts/font = ExtResource("9_yy34t")
+theme_override_font_sizes/font_size = 40
+text = "GAME OVER 
+"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yy34t")
 
 [editable path="Sketchfab_Scene"]

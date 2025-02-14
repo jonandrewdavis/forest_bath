@@ -23,6 +23,7 @@ signal death_signal
 
 func _enter_tree():
 	set_multiplayer_authority(1)
+	Hub.get_cart()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -68,6 +69,7 @@ func hit_sync(_by_who_name: String, power: int):
 		$SoundFXTrigger.play()
 
 func _on_cart_death():
+	$Death.show()
 	death_signal.emit()
 	is_dead = true
 	await get_tree().create_timer(2.0).timeout

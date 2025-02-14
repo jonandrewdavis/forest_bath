@@ -13,17 +13,18 @@ var player_source = false
 
 @onready var BULLET_SCENE = preload("res://player/equipment_system/equipment/bullet.tscn")
 
+var HARDCODED = Vector2(922.0, 518.0)
+
 func _ready():
 	if get_parent().is_in_group("players"):
 		_Camera = $"../FollowCam".camera_3d
 		Player_Ray = $BulletRayCast
 		#_Viewport = get_viewport().get_size()
-		_Viewport = Vector2(768.0, 432.0)
 		player_source = true
 # players only... since they ahve cameras.
 func shoot():	
-	var Ray_Origin = _Camera.project_ray_origin(Vector2(768.0, 432.0)/2)
-	var Ray_End = (Ray_Origin + _Camera.project_ray_normal((Vector2(768.0, 432.0)/2)) * fire_range)
+	var Ray_Origin = _Camera.project_ray_origin(HARDCODED/2)
+	var Ray_End = (Ray_Origin + _Camera.project_ray_normal((HARDCODED/2)) * fire_range)
 	LaunchProjectile(Ray_End + Vector3.FORWARD + Vector3.FORWARD	)
 		#
 #var spread_min = 0.008

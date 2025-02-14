@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgko5bli3cmar"]
+
+[ext_resource type="Environment" uid="uid://cvhxedd5g0l7w" path="res://MountainEnvironment.tres" id="1_jhaqg"]
+
+[node name="MontainEnvironmentV1" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_jhaqg")
+
+[node name="NewSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.887643, -0.0326387, 0.459375, -0.191903, 0.880545, 0.433374, -0.418645, -0.472837, 0.775346, 2.75844, 9.87776, 11.2375)
+light_energy = 2.0
+light_indirect_energy = 11.23
+light_volumetric_fog_energy = 0.7
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 30.0

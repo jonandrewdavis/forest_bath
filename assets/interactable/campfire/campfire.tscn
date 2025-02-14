@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ch6528py03hat"]
+[gd_scene load_steps=17 format=3 uid="uid://ch6528py03hat"]
 
 [ext_resource type="PackedScene" uid="uid://b13e1f13iy5t7" path="res://assets/interactable/campfire/campfire_asset.gltf" id="1_s7apb"]
 [ext_resource type="Shader" uid="uid://c6ju8gvyjnksu" path="res://utility scripts/FireFromGameIdeaOrg.gdshader" id="2_eo14m"]
@@ -82,27 +82,9 @@ backlight = Color(0.752941, 0, 0, 1)
 material = SubResource("StandardMaterial3D_36eyg")
 height = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_243a5"]
-resource_name = "Material.002"
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.82098, 0.82098, 0.82098, 1)
-emission = Color(0.906332, 0.906332, 0.906332, 1)
-emission_energy_multiplier = 0.1717
-uv1_scale = Vector3(0.4, 0.4, 0.4)
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_us28o"]
-material = SubResource("StandardMaterial3D_243a5")
-size = Vector3(2, 1, 2)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fpwmx"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3b87b"]
-size = Vector3(2, 1, 2)
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nm23h"]
 noise_type = 0
-frequency = 0.2112
+frequency = 0.2487
 
 [sub_resource type="NoiseTexture3D" id="NoiseTexture3D_r7c4v"]
 noise = SubResource("FastNoiseLite_nm23h")
@@ -163,26 +145,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114788, 0, 0)
 mesh = SubResource("CylinderMesh_o5icv")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CamfireContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141698, 0, 0)
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="CamfireContainer/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0342777, -0.478938, 0)
-mesh = SubResource("BoxMesh_us28o")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CamfireContainer/StaticBody3D"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.373937, 0)
-shape = SubResource("CapsuleShape3D_fpwmx")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CamfireContainer/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.500184, 0)
-shape = SubResource("BoxShape3D_3b87b")
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13965, 0)
 light_color = Color(1, 0.858824, 0.294118, 1)
-light_energy = 12.9273
+light_energy = 8.39279
 light_indirect_energy = 16.0
 light_volumetric_fog_energy = 1.486
 omni_range = 16.4

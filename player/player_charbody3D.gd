@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export_range(1,50,1) var mouse_sensitivity = 10.0
+@export_range(1,50,1) var mouse_sensitivity = 15.0
 @export_range(1,50,1) var joystick_sensitivity = 15.0
 
 # MULTIPLAYER TEMPLATE VARS
@@ -284,6 +284,10 @@ func change_state(new_state):
 func _process(_delta):
 	%StaminaBar.value = stamina
 	%StaminaLabel.text = str(stamina)
+	var test = global_position * Vector3(1.0, 0.0, 1.0)
+	if test.distance_to(Vector3.ZERO) > 106:
+		global_position = Vector3(10.0, 12.0, 5.0)
+	
 	if is_on_floor() == true && busy == false && sprinting == false && guarding == false:
 		recover_stamina()
 
@@ -978,7 +982,7 @@ func _on_update_coin():
 	$GUI/GUIFullRect/MarginContainer/ItemSlot/CoinCount.text = str(coins)
 	
 func _on_eyeline_enter(_interactable):
-	if _interactable && _interactable.is_in_group("interactable") or _interactable.name == "Cart":
+	if _interactable && _interactable.is_in_group("interactable"):
 		$GUI/GUIFullRect/InteractTooltip.text = str(_interactable.name)
 		interactable_custom = _interactable
 	

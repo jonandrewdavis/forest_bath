@@ -25,7 +25,6 @@ var combat_range :float = 1.9
 @onready var patrol_timer: Timer = $PatrolTimer
 
 @onready var hurt_cool_down = $HurtTimer
-@onready var ragdoll_death :bool = false
 @onready var general_skeleton = $vampire/GeneralSkeleton
 
 var colliding_with_target = false
@@ -133,16 +132,18 @@ func _on_target_exited(_body):
 		
 func _process(delta):
 	apply_gravity(delta)
-	if current_state == state.DEAD:
+	if target == null or current_state == state.DEAD:
 		return
 
-	if target == null:
-		return
 	rotate_character()
 	navigation()
 	free_movement(delta)
+
 	if current_state != state.CIRCLE && panic == false:
 		evaluate_state()
+	var test = global_position * Vector3(1.0, 0.0, 1.0)
+	if test.distance_to(Vector3.ZERO) > 106:
+		queue_free()
 	
 func free_movement(delta):
 	#set_quaternion(get_quaternion() * animation_tree.get_root_motion_rotation())
@@ -196,6 +197,8 @@ func rotate_character():
 	global_transform.basis = Basis(target_rotation)
 
 func evaluate_state(): ## depending on distance to target, run or walk
+	if current_state == state.DEAD:
+		return
 	if target:
 		if target == default_target && target.is_in_group("targets") == false:			
 			current_state = state.FREE
@@ -381,41 +384,20 @@ func parried():
 func death():
 	combat_timer.stop()
 	update_current_state(state.DEAD)
+	set_collision_layer_value(1, false)
 	hurt_cool_down.start(10)
-	death_sync.rpc()
-	if multiplayer.is_server():
-		await get_tree().create_timer(2.0).timeout
-		Hub.add_coins(randi_range(1,5))
-	# Note: always queue_free on the server. - AD
+	death_started.emit()
+
+	#if multiplayer.is_server():
+		#await get_tree().create_timer(2.0).timeout
+		#Hub.add_coins(randi_range(1,5))
+	## Note: always queue_free on the server. - AD
 	await get_tree().create_timer(2.0).timeout
 	if multiplayer.is_server():
 		if target.is_in_group("players"):
 			target.get_kill.rpc()
-		queue_free()
-		
-@rpc("any_peer", "call_local")
-func death_sync():
-	update_current_state(state.DEAD)
-	remove_from_group(group_name)
-	if ragdoll_death:
-		apply_ragdoll()
-	else:
-		death_started.emit()
-
-# TODO: Ragdoll on the clients
-func apply_ragdoll():
-	general_skeleton.physical_bones_start_simulation()
-	animation_tree.active = false
-	
-	# if you want to stop the rag doll after a few seconds, uncomment this code.
-	await get_tree().create_timer(3).timeout
-	var bone_transforms = []
-	var bone_count = general_skeleton.get_bone_count()
-	for i in bone_count:
-		bone_transforms.append(general_skeleton.get_bone_global_pose(i))
-	general_skeleton.physical_bones_stop_simulation()
-	for i in bone_count:
-		general_skeleton.set_bone_global_pose_override(i, bone_transforms[i],1,true)
+			await get_tree().create_timer(2.0).timeout
+			queue_free()
 
 func _on_animation_measured(_new_length):
 	anim_length = _new_length - .05 # offset slightly for the process frame

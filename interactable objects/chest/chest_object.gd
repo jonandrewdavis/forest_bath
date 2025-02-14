@@ -31,7 +31,7 @@ func activate(player: CharacterBody3D):
 		# return early if we're the store chest...
 		return
 	
-	var roll = randi_range(0, 10)
+	var roll = randi_range(0, 2)
 	#if locked:
 		#shake_chest()
 	if opened:

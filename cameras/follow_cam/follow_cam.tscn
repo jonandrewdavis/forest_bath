@@ -17,8 +17,8 @@ shader_parameter/fog_fade_range = 50.0
 shader_parameter/enable_noise = false
 shader_parameter/noise_time_fac = 4.0
 shader_parameter/enable_color_limitation = true
-shader_parameter/color_levels = 128
-shader_parameter/enable_dithering = true
+shader_parameter/color_levels = 64
+shader_parameter/enable_dithering = false
 shader_parameter/dither_strength = 0.3
 
 [sub_resource type="QuadMesh" id="QuadMesh_bobr2"]

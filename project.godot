@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Forest Bath"
 run/main_scene="res://level/scenes/level.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://forest_bath.png"
 
 [audio]
@@ -49,7 +49,7 @@ window/vsync/vsync_mode=2
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/tattomoosa.spinner/plugin.cfg")
 
 [global_group]
 
@@ -262,6 +262,8 @@ debug_5={
 
 [rendering]
 
+renderer/rendering_method.mobile="forward_plus"
+renderer/rendering_method.web="forward_plus"
 textures/vram_compression/import_etc2_astc=true
 
 [shader_globals]

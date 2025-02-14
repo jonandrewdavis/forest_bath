@@ -1,9 +1,6 @@
 extends Node3D
 
 @onready var master_slider: HSlider = $Menu/MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/MenuMasterSlider
-@onready var skin_input: LineEdit = $Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option2/SkinInput
-@onready var nick_input: LineEdit = $Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option1/NickInput
-@onready var address_input: LineEdit = $Menu/MainContainer/NetfoxMenuContainer/OldMenu/Option3/AddressInput
 @onready var players_container: Node = $PlayersContainer
 @onready var menu: Control = $Menu
 @export var player_scene: PackedScene
@@ -13,7 +10,6 @@ var bus_master = AudioServer.get_bus_index("Master")
 const terrain_two = preload("res://terrain_two.tscn")
 
 const environment_arena = preload("res://level/scenes/arena.tscn")
-const environment_instance_root_scene = preload("res://assets/environment_instances/environment_instance_root.tscn")
 const enemy_scene = preload('res://enemy/enemy_base_root_motion.tscn')
 const cart_scene = preload("res://assets/interactable/medieval_carriage/cart.tscn")
 
@@ -65,12 +61,12 @@ func _spawn_enemy():
 func _on_player_connected(peer_id, _player_info):
 	for id in Network.players.keys():
 		var _player_data = Network.players[id]
+		_add_player(peer_id, false)
 		#if id != peer_id:
 			# These are client only syncs, to set player properties.
 			#rpc_id(peer_id, "sync_player_skin", id, player_data["skin"])
 			#rpc_id(peer_id, "sync_player_skin", id, player_data["skin"])
-	
-	_add_player(peer_id, false)
+
 
 func _on_host_pressed(single_player):
 	menu.hide()
@@ -88,21 +84,6 @@ func _on_host_pressed(single_player):
 		await _on_join_started()
 		RenderingServer.render_loop_enabled = false
 
-func _on_join_pressed():
-	menu.hide()
-	$LoadingControl.modulate.a = 0
-	$LoadingControl.visible = true
-	var tween = create_tween()
-	tween.tween_property($LoadingControl,"modulate:a", 1, 1.5)
-	await tween.finished
-	# NOTE: Disabled for netfox.
-	#var check_join_game = Network.join_game(nick_input.text.strip_edges(), skin_input.text.strip_edges(), address_input.text.strip_edges())
-	var check_join_game = false
-	if check_join_game != OK:
-		$LoadingControl.visible = false
-		menu.show()
-		$Menu/MainContainer/Error.show()
-		
 func _on_join_started():
 	menu.hide()
 	$LoadingControl.modulate.a = 0
@@ -135,7 +116,7 @@ func _add_player(id: int, single_player: bool):
 	# Runs this function to attach the environment, etc.
 	if id != 1:
 		rpc_id(id, "sync_player_client_only_nodes", id)
-	else: 
+	elif single_player: 
 		_add_single_player_only_nodes_and_finish_loading()
 
 func get_spawn_point() -> Vector3:
@@ -160,14 +141,21 @@ func sync_player_position(id: int, new_position: Vector3):
 	
 @rpc
 func sync_player_client_only_nodes(peer_id):
-
 	var player_node = Hub.get_player(peer_id)
-	var prepare_environment = environment_instance_root_scene.instantiate()
-	$EnvironmentContainer.add_child(prepare_environment)
-	prepare_environment.environment_tracker_changed.emit(player_node) 
 	player_node.position = get_spawn_point()
-	#var server_scenario_manager = server_scenario_manager_scene.instantiate()
-	#add_child(server_scenario_manager)
+
+	# HACKY WARNING!!!!
+	# HACKY WARNING!!!!
+	# HACKY WARNING!!!!
+	# HACKY WARNING!!!!
+	# HACKY WARNING!!!!
+	var prepare_terrain_two = terrain_two.instantiate()
+	$EnvironmentContainer.add_child(prepare_terrain_two)
+	# Emits for grass tracking
+	prepare_terrain_two.environment_tracker_changed.emit(player_node)
+	
+	var wave_prep = wave_scenario.instantiate()
+	$EnvironmentContainer.add_child.call_deferred(wave_prep)
 
 	await get_tree().create_timer(1.2).timeout
 	var tween = create_tween()
@@ -183,20 +171,11 @@ var new_single_player_terrain = true
 
 func _add_single_player_only_nodes_and_finish_loading():
 	var player_node = Hub.get_player(1)
-	if debug_arena == true:
-		var prep_debug = environment_arena.instantiate()
-		$EnvironmentContainer.add_child(prep_debug)
-	elif new_single_player_terrain: 
-		_new_game_mode()
-	else:
-		var prepare_environment = environment_instance_root_scene.instantiate()
-		$EnvironmentContainer.add_child(prepare_environment)
-		prepare_environment.environment_tracker_changed.emit(player_node) 
-		Hub.environment_ignore_add.emit($FirstIgnore, 'FirstIgnore')
+	_new_game_mode()
 
 	player_node.position = get_spawn_point()
 
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(3.0).timeout
 	var tween = create_tween()
 	tween.tween_property($LoadingControl,"modulate:a", 0, 1.5)
 	await tween.finished
@@ -207,29 +186,35 @@ func _new_game_mode():
 	var prepare_terrain_two = terrain_two.instantiate()
 	$EnvironmentContainer.add_child(prepare_terrain_two)
 	# Emits for grass tracking
-	#prepare_terrain_two.environment_tracker_changed.emit(player_node)
+	var player_node = Hub.get_player(1)
+	prepare_terrain_two.environment_tracker_changed.emit(player_node)
+
 	Hub.forest_sun = $EnvironmentContainer.get_node("TerrainTwo").sun
+	var cart = cart_scene.instantiate()
+	$EnvironmentContainer.add_child.call_deferred(cart, true)
+
+	
+	var wave_prep = wave_scenario.instantiate()
+	$EnvironmentContainer.add_child.call_deferred(wave_prep)
+	
+	await get_tree().create_timer(0.2).timeout
+	cart.global_position = Vector3(-8.0, 2.0, 2.0)
+
+
+func add_server_only_nodes():
+	var prepare_terrain_two = terrain_two.instantiate()
+	$EnvironmentContainer.add_child(prepare_terrain_two)
+
+	# Emits for grass tracking
 	var cart = cart_scene.instantiate()
 	$EnvironmentContainer.add_child.call_deferred(cart, true)
 	
 	var wave_prep = wave_scenario.instantiate()
 	$EnvironmentContainer.add_child.call_deferred(wave_prep)
-
-
-func add_server_only_nodes():
-	var prepare_environment = environment_instance_root_scene.instantiate()
-	var cart = cart_scene.instantiate()
-
-	$EnvironmentContainer.add_child.call_deferred(prepare_environment)
-	$EnvironmentContainer.add_child.call_deferred(cart, true)
-
-	await get_tree().create_timer(.1).timeout
-	prepare_environment.environment_tracker_changed.emit(cart) 
-	cart.global_position = Vector3(-7.0, 1.0, -10.0)
 	
-	# Begin Scenarios
-	Hub.encounter_timer_start.emit()
-	Hub.encounter_tracker_changed.emit(cart)
+	await get_tree().create_timer(0.2).timeout
+	cart.global_position = Vector3(-8.0, 2.0, 2.0)
+
 
 func _on_menu_master_slider_value_changed(value):	
 	AudioServer.set_bus_volume_db(bus_master, linear_to_db(value))

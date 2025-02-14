@@ -19,6 +19,8 @@ fractal_lacunarity = 3.0
 fractal_weighted_strength = 0.1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wcpwf"]
+width = 256
+height = 256
 invert = true
 in_3d_space = true
 noise = SubResource("FastNoiseLite_o8re7")
@@ -62,8 +64,6 @@ patch_margin_bottom = 20
 self_modulate = Color(1, 1, 1, 0.145098)
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_wcpwf")
-expand_mode = 2
-stretch_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel"]
 layout_mode = 2
@@ -73,25 +73,52 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Scoreboard" type="RichTextLabel" parent="MarginContainer2/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/Panel/MarginContainer"]
 layout_mode = 2
-bbcode_enabled = true
-text = "
 
-"
-fit_content = true
+[node name="Controls" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Controls"
+
+[node name="Label" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "[TAB]: close menu"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="RichTextLabel" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "[WASD]: Move
+[E]: Interact with cart
+[Click]: Attack
+[Right Click]: Block / Aim
+[G]: Item (Heal)
+[R]: Swap Primary Weapon
+[Q]: Swap Secondary
+[F]: Jump
+[Shift]: Sprint
+[Space]: Roll (Evade)"
+
+[node name="RichTextLabel2" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+text = "\\ : Debug (framerate)
+[K]: Kill all (cheat) 
+[L]: Add money (cheat)
+[0]: Spawn enemy"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+clip_contents = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -630.0
-offset_top = -448.5
-offset_right = 630.0
-offset_bottom = 448.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 400
@@ -100,9 +127,9 @@ theme_override_constants/margin_right = 400
 theme_override_constants/margin_bottom = 200
 
 [node name="Panel" type="PanelContainer" parent="MarginContainer"]
-custom_minimum_size = Vector2(660, 0)
+clip_contents = true
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_wacxy")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/Panel"]
@@ -120,7 +147,6 @@ texture = SubResource("NoiseTexture2D_wcpwf")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 50
@@ -138,7 +164,7 @@ text = "Forest Bath"
 [node name="Settings2" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
-text = "Settings"
+text = "Settings "
 
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -176,6 +202,7 @@ text = "Look Sensitivity"
 layout_mode = 2
 
 [node name="Shadows" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Enhanced Shadows"
 
@@ -219,34 +246,9 @@ layout_mode = 2
 step = 0.01
 
 [node name="CheckButton" type="CheckButton" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+visible = false
 layout_mode = 2
 button_pressed = true
-
-[node name="Controls" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Controls"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 60
-
-[node name="RichTextLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "[WASD]: Move
-[E]: Interact
-[G]: Item (Heal)
-[R]: Swap Primary Weapon
-[Q]: Swap Secondary"
-
-[node name="RichTextLabel2" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "[F]: Jump
-[Shift]: Sprint
-[Space]: Roll (Evade)
-
-Note: Controller Supported"
 
 [node name="PVP Box" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

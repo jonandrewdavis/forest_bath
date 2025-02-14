@@ -23,6 +23,8 @@ skeleton = NodePath("../Ground")
 surface_material_override/0 = ExtResource("2_rkxrc")
 
 [node name="Ground" type="StaticBody3D" parent="." groups=["navigation_mesh_source_group"]]
+collision_layer = 513
+collision_mask = 513
 
 [node name="GrassCollisionShape" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("HeightMapShape3D_yq760")

@@ -3,13 +3,9 @@ extends Node3D
 
 signal environment_tracker_changed
 
-@onready var sun = $NewSun
+@onready var sun = $MountainEnviromentV3/DirectionalLight3D
+@onready var env: WorldEnvironment = $MountainEnviromentV3/WorldEnvironment
 
-func _on_reset_body_entered(body: Node3D) -> void:
-	print('BODY', body)
+func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group('players'):
-		print('BODY')
-		body.death()
-	elif body.is_in_group('enemies'):
-		if multiplayer.is_server():
-			body.queue_free()
+		body.global_position = Vector3(5.0, 15.0, 5.0)

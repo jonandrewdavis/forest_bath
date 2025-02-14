@@ -1,7 +1,7 @@
 @tool
 extends Node3D
 
-const GRASS_MESH_HIGH := preload('res://assets/environment/GodotGrass/grass/grass_high.obj')
+const GRASS_MESH_HIGH := preload('res://assets/environment/GodotGrass/grass/small_grass_high.obj')
 const GRASS_MESH_LOW := preload('res://assets/environment/GodotGrass/grass/grass_low.obj')
 const GRASS_MAT := preload('res://assets/environment/GodotGrass/grass/mat_grass.tres')
 const HEIGHTMAP := preload('res://assets/environment/heightmap_grass_main.tres')
@@ -18,7 +18,7 @@ var previous_tile_id := Vector3.ZERO
 var should_render_imgui := true
 
 @onready var should_render_shadows := [false]
-@onready var density_modifier := [0.8 if Engine.is_editor_hint() else 1.0]
+@onready var density_modifier := [0.8 if Engine.is_editor_hint() else 1.2]
 @onready var clumping_factor := [GRASS_MAT.get_shader_parameter('clumping_factor')]
 @onready var wind_speed := [GRASS_MAT.get_shader_parameter('wind_speed')]
 
@@ -45,14 +45,18 @@ func _ready() -> void:
 	# Listen for changes to the node to follow / track
 	if get_parent().has_signal("environment_tracker_changed"):
 		get_parent().environment_tracker_changed.connect(set_new_grass_tracker)
+	else: 
+		print("Grass Main: NO tracker")
 	
 	# TODO: Ready on signal instead of by default and we can remove the ! player check in physics
 	RenderingServer.viewport_set_measure_render_time(get_tree().root.get_viewport_rid(), true)
+
+	await get_tree().create_timer(1.0).timeout
 	_setup_grass_instances()
 	_generate_grass_multimeshes()
 
-	if (get_node_or_null('NavigationRegion3D/Ground/GrassCollisionShape')):
-		grass_collision_shape = $NavigationRegion3D/Ground/GrassCollisionShape
+	if (get_node_or_null('Ground/GrassCollisionShape')):
+		grass_collision_shape = $Ground/GrassCollisionShape
 		_setup_heightmap_collision(Vector3(0.0, 0.0, 0.0))
 	
 func set_new_grass_tracker(node):
@@ -68,7 +72,7 @@ func _physics_process(_delta: float) -> void:
 
 	#NOTE!!!!! REMOVED EDITOR FOR FINAL BUILD
 	# Correct LOD by repositioning tiles when the player moves into a new tile
-	#var lod_target : Node3D = EditorInterface.get_editor_viewport_3d(0).get_camera_3d() if Engine.is_editor_hint() else player
+	#var lod_target : Node3D = player
 	var tile_id : Vector3 = ((player.global_position + Vector3.ONE*TILE_SIZE*0.5) / TILE_SIZE * Vector3(1,0,1)).floor()
 	if tile_id != previous_tile_id:
 		for data in grass_multimeshes:
@@ -143,9 +147,9 @@ func _generate_grass_multimeshes() -> void:
 		var distance = data[1].length() # Distance from center tile
 		if distance > MAP_RADIUS: continue
 		#if distance < 12.0:    data[0].multimesh = multimesh_lods[0]
-		#elif distance < 24.0:  data[0].multimesh = multimesh_lods[1]
-		elif distance < 50.0:  data[0].multimesh = multimesh_lods[1]
-		elif distance < 100.0: data[0].multimesh = multimesh_lods[2]
+		elif distance < 35.0:  data[0].multimesh = multimesh_lods[1]
+		elif distance < 60.0:  data[0].multimesh = multimesh_lods[2]
+		#elif distance < 0.0: data[0].multimesh = multimesh_lods[3]
 		else:                  data[0].multimesh = multimesh_lods[3]
 
 func create_grass_multimesh(density : float, tile_size : float, mesh : Mesh) -> MultiMesh:
