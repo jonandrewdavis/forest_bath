@@ -192,8 +192,6 @@ func _ready():
 	# NOTE: That means we can disable any signals if we're not authority.
 	set_process(is_multiplayer_authority())
 	if not is_multiplayer_authority():
-		if multiplayer.is_server():
-			set_physics_process(false)
 		return
 	
 	$GUI.hide()

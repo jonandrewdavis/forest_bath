@@ -46,14 +46,13 @@ func host(_single_player: bool = false):
 	
 	print("Server started")
 	get_tree().get_multiplayer().server_relay = true
-	
+
 	connect_ui.hide()
-	
-	# NOTE: ADDED!
-	if _single_player: 
-		level_root._on_host_pressed(true)
-	else:
-		level_root._on_host_pressed(false)
+	Network.player_info["nick"] = "Player_" + str(1)
+	Network.players[1] = Network.player_info
+	Hub.player_connected.emit(1, Network.player_info)
+
+	level_root._on_host_pressed(true)
 	
 	# NOTE: This is not needed when using NetworkEvents
 	# However, this script also runs in multiplayer-simple where NetworkEvents

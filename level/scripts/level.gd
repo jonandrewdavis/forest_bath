@@ -76,13 +76,9 @@ func _on_host_pressed(single_player):
 	# SINGLE PLAYER HERE
 	# SINGLE PLAYER HERE
 	# SINGLE PLAYER HERE
-	if single_player: 
-		await _on_join_started()
-		_add_player(1, true)
-	else:
-		add_server_only_nodes()
-		await _on_join_started()
-		RenderingServer.render_loop_enabled = false
+	await _on_join_started()
+	_add_player(1, true)
+
 
 func _on_join_started():
 	menu.hide()
@@ -214,6 +210,8 @@ func add_server_only_nodes():
 	
 	await get_tree().create_timer(0.2).timeout
 	cart.global_position = Vector3(-8.0, 2.0, 2.0)
+
+	
 
 
 func _on_menu_master_slider_value_changed(value):	

@@ -90,8 +90,14 @@ func host():
 	connect_ui.hide()
 
 	# NOTE: ADDED!
-	level_root._on_host_pressed()
+	# NOTE: ADDED!
+	connect_ui.hide()
+	Network.player_info["nick"] = "Player_" + str(1)
+	Network.players[1] = Network.player_info
+	Hub.player_connected.emit(1, Network.player_info)
 
+	level_root._on_host_pressed(true)
+	
 	# NOTE: This is not needed when using NetworkEvents
 	# However, this script also runs in multiplayer-simple where NetworkEvents
 	# are assumed to be absent, hence starting NetworkTime manually
