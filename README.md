@@ -1,7 +1,7 @@
 
 # ForestBath Tech Demo
 
-### ForestBath is a multiplayer souls-ish game about pulling a cart through a forest.
+### ForestBath is a multiplayer souls-ish prototype game about pulling a cart through a forest.
 
 It is personal project, not intended for distribution. It's for learning purposes and to play with friends.
 
