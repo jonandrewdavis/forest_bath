@@ -81,7 +81,7 @@ func _input(event):
 func _physics_process(_delta):
 	if not is_multiplayer_authority(): return
 
-	#joystick_control() # run in physics processr ather than event for smoother action
+	joystick_control() # run in physics processr ather than event for smoother action
 
 	_follow_target(follow_target)
 	_lookat_target()
