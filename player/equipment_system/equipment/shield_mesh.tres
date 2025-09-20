@@ -6,8 +6,8 @@
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1upk2"]
 width = 1024
 height = 1024
-in_3d_space = true
 seamless = true
+in_3d_space = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mmwcb"]
 resource_name = "Blade"

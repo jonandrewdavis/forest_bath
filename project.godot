@@ -41,7 +41,6 @@ gdscript/warnings/unused_signal=0
 
 window/size/viewport_width=922
 window/size/viewport_height=518
-window/size/mode=4
 window/size/resizable=false
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="viewport"

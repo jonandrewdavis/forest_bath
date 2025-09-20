@@ -11,11 +11,11 @@ fractal_gain = -0.645
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k0716"]
 width = 1024
 height = 1024
-in_3d_space = true
+noise = SubResource("FastNoiseLite_vrk0s")
 seamless = true
+in_3d_space = true
 as_normal_map = true
 bump_strength = 2.0
-noise = SubResource("FastNoiseLite_vrk0s")
 
 [resource]
 resource_name = "Armor"
