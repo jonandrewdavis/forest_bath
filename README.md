@@ -5,7 +5,6 @@
 
 Updated and added a single player mode. [Forest Bath on Itch.io](https://jonandrewitchio.itch.io/forest-bath)
 
-
 ### ForestBath is a multiplayer souls-ish game about pulling a cart through a forest.
 
 It is personal project, not intended for distribution. It's for learning purposes and to play with friends.
