@@ -138,7 +138,7 @@ func _process(_delta):
 # RPC THIS? 
 func request_oneshot(oneshot:String):
 	last_oneshot = oneshot
-	set("parameters/" + oneshot + "/request", true)
+	set("parameters/" + oneshot + "/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	if is_multiplayer_authority():
 		sync_player_oneshot.rpc(oneshot)
 	
@@ -278,7 +278,7 @@ func _on_hurt_started(): ## Picks a hurt animation between "Hurt1" and "Hurt2"
 			current_weapon_tree.start("MoveStrafe")
 		
 func abort_oneshot(_last_oneshot:String):
-	set("parameters/" + _last_oneshot + "/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+	set("parameters/" + _last_oneshot + "/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 
 func _on_death_started():
 	base_state_machine.travel("Death")

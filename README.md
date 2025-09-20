@@ -1,7 +1,11 @@
 
 # ForestBath Tech Demo
 
-### ForestBath is a multiplayer souls-ish prototype game about pulling a cart through a forest.
+## Update: Now on Itch.io 
+
+Updated and added a single player mode. [Forest Bath on Itch.io](https://jonandrewitchio.itch.io/forest-bath)
+
+### ForestBath is a multiplayer souls-ish game about pulling a cart through a forest.
 
 It is personal project, not intended for distribution. It's for learning purposes and to play with friends.
 
@@ -9,7 +13,7 @@ It is personal project, not intended for distribution. It's for learning purpose
 - A shop with a wide arrange of weapons with combo attacks
 - Enemies & encounters!
 
-![A character standing in the forest bath game](ForestBath1.png)
+![A character standing in the forest bath game](forest_bath_preview.png)
 
 #### Videos
 

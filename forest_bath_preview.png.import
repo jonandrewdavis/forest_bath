@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3oawr4kd1apr"
-path="res://.godot/imported/TinyFoliage01_normal.png-cfd7060f2234203297ac7512d56341de.ctex"
+uid="uid://dpq1htxohq6eb"
+path="res://.godot/imported/forest_bath_preview.png-920d9330463893fb0bb2dcec1bf89aad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://demo_level/world_materials/TinyFoliage01_normal.png"
-dest_files=["res://.godot/imported/TinyFoliage01_normal.png-cfd7060f2234203297ac7512d56341de.ctex"]
+source_file="res://forest_bath_preview.png"
+dest_files=["res://.godot/imported/forest_bath_preview.png-920d9330463893fb0bb2dcec1bf89aad.ctex"]
 
 [params]
 
